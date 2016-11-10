@@ -1,0 +1,1444 @@
+WEBVTT
+
+1
+00:00:08.751 --> 00:00:11.020
+So welcome to Chapter 11,
+Regular Expressions.
+
+2
+00:00:11.020 --> 00:00:14.050
+Now at this point I really am assuming
+that you've mastered the material in
+
+3
+00:00:14.050 --> 00:00:16.590
+the first ten chapters of the book.
+
+4
+00:00:16.590 --> 00:00:19.720
+You know what a loop is, you know what
+a dictionary is, you know what a list is.
+
+5
+00:00:19.720 --> 00:00:21.638
+You don't have to write
+super complex programs.
+
+6
+00:00:21.638 --> 00:00:26.100
+But I want to be able to use those in
+a sentence and not have you say, like,
+
+7
+00:00:26.100 --> 00:00:27.340
+well, could you define that?
+
+8
+00:00:27.340 --> 00:00:31.350
+Well, if I start talking about things
+that are hard for you to understand,
+
+9
+00:00:31.350 --> 00:00:35.250
+that's what those previous chapters and
+any previous courses are for.
+
+10
+00:00:35.250 --> 00:00:40.600
+So regular expressions are, they're
+a very interesting thing in programming.
+
+11
+00:00:41.810 --> 00:00:43.660
+They are
+themselves a programming language.
+
+12
+00:00:43.660 --> 00:00:46.575
+They're like this own little
+tiny mini programming language,
+
+13
+00:00:46.575 --> 00:00:49.765
+that actually you can use in many
+different programming languages.
+
+14
+00:00:49.765 --> 00:00:52.716
+So you can you use them in Python,
+you can use them in JavaScript,
+
+15
+00:00:52.716 --> 00:00:53.851
+you can use them in Java.
+
+16
+00:00:53.851 --> 00:00:57.966
+And pretty much any time you have some
+kind of a complex string matching or
+
+17
+00:00:57.966 --> 00:01:01.210
+extraction, you will run
+across regular expressions.
+
+18
+00:01:02.380 --> 00:01:06.210
+Now another other thing that's really important
+to point out is that you don't really
+
+19
+00:01:06.210 --> 00:01:08.420
+need to know regular expressions.
+
+20
+00:01:08.420 --> 00:01:12.950
+As, what I'll be showing you throughout
+this lecture is two ways of doing things.
+
+21
+00:01:12.950 --> 00:01:17.330
+One is kind of like the simple,
+using simpler capabilities that takes
+
+22
+00:01:17.330 --> 00:01:19.400
+a little longer, and
+then using regular expressions,
+
+23
+00:01:19.400 --> 00:01:23.780
+which are, tend to be more succinct
+ways but then more complex.
+
+24
+00:01:23.780 --> 00:01:27.820
+So a regular expression itself
+is a programming language
+
+25
+00:01:27.820 --> 00:01:30.460
+that is specialized in string matching.
+
+26
+00:01:30.460 --> 00:01:31.850
+It itself is a programming language.
+
+27
+00:01:32.980 --> 00:01:37.480
+And the simple version of it is that it's
+just really clever wild card expressions
+
+28
+00:01:37.480 --> 00:01:40.810
+for matching, parsing, and
+extracting information from strings,
+
+29
+00:01:40.810 --> 00:01:42.840
+which is a lot of what we've done so
+far in this class.
+
+30
+00:01:44.020 --> 00:01:46.560
+And it's just a smart find or a search.
+
+31
+00:01:46.560 --> 00:01:49.980
+Here's the Wikipedia definition
+of regular expression.
+
+32
+00:01:51.450 --> 00:01:55.390
+And some of you are going to
+like regular expressions.
+
+33
+00:01:55.390 --> 00:01:58.450
+As a matter of fact, some of you might
+say, why didn't we start doing regular
+
+34
+00:01:58.450 --> 00:02:00.551
+expressions at the very beginning,
+it'll be very natural to you.
+
+35
+00:02:00.551 --> 00:02:05.200
+Because you sort of, some people wanna
+think deeply about a problem and
+
+36
+00:02:05.200 --> 00:02:07.670
+come up with this beautiful
+expression of the problem, and
+
+37
+00:02:07.670 --> 00:02:09.960
+then go like here computer,
+this is my expression.
+
+38
+00:02:09.960 --> 00:02:13.480
+Others like to use simpler multistep.
+
+39
+00:02:13.480 --> 00:02:15.000
+I find them fun.
+
+40
+00:02:15.000 --> 00:02:17.320
+But they are their own language, and
+
+41
+00:02:17.320 --> 00:02:20.240
+it's a language of characters
+rather than a language of tokens.
+
+42
+00:02:20.240 --> 00:02:25.340
+So if you think of print, and for,
+and if, those are all tokens.
+
+43
+00:02:25.340 --> 00:02:31.010
+They're word-like things, but in regular
+expressions, a single character.
+
+44
+00:02:31.010 --> 00:02:36.030
+And it comes from a time in the 70s, and
+so it's a very compact little language.
+
+45
+00:02:38.280 --> 00:02:46.020
+Regular expressions are a mark of
+coolness for some value of cool.
+
+46
+00:02:46.020 --> 00:02:48.490
+If you know regular expressions,
+people are like, whoa, and
+
+47
+00:02:48.490 --> 00:02:52.810
+they're not that hard to know,
+but they're so funky and
+
+48
+00:02:52.810 --> 00:02:56.640
+weird that it's kind of
+special when you know it.
+
+49
+00:02:56.640 --> 00:02:59.150
+So you should be proud once you
+understand regular expressions.
+
+50
+00:02:59.150 --> 00:03:02.970
+It's sort of a mark of awesomeness,
+like a little
+
+51
+00:03:02.970 --> 00:03:08.350
+regular expression tattoo like my
+little tattoo that I have here.
+
+52
+00:03:08.350 --> 00:03:09.790
+So regular expressions, when you learn it,
+
+53
+00:03:09.790 --> 00:03:11.980
+it's like you've gotten
+yourself a really cool tattoo.
+
+54
+00:03:13.050 --> 00:03:16.609
+So here's a quick guide, and
+I didn't write this quick guide because,
+
+55
+00:03:16.609 --> 00:03:19.880
+I mean I wrote this quick
+guide because I need it.
+
+56
+00:03:19.880 --> 00:03:23.750
+As a matter of fact, I have it with me,
+I have it printed out on a piece of paper.
+
+57
+00:03:23.750 --> 00:03:27.590
+And some of the regular
+expression stuff I remember and
+
+58
+00:03:27.590 --> 00:03:30.750
+I can write simple regular expressions
+without looking at a guide,
+
+59
+00:03:30.750 --> 00:03:32.580
+but other ones,
+I need a little bit of help.
+
+60
+00:03:33.860 --> 00:03:37.670
+So if we take a look at sort of this
+table, the way this table works is,
+
+61
+00:03:37.670 --> 00:03:41.660
+I told you that regular expressions
+is a language of characters.
+
+62
+00:03:41.660 --> 00:03:44.150
+And so instead of if or a tab or
+
+63
+00:03:44.150 --> 00:03:48.900
+something having meaning, what it is,
+is a character has meaning.
+
+64
+00:03:48.900 --> 00:03:52.869
+So if you're in a regular expression,
+^ means the beginning of a line,
+
+65
+00:03:52.869 --> 00:03:54.670
+$ means the end of the line.
+
+66
+00:03:54.670 --> 00:03:56.980
+It doesn't mean caret or dollar.
+
+67
+00:03:56.980 --> 00:03:58.540
+^ and $ are special characters.
+
+68
+00:03:58.540 --> 00:04:04.611
+So it's like the programming language,
+., *, +, brackets, and parentheses,
+
+69
+00:04:04.611 --> 00:04:10.386
+among other characters, have meaning
+in this little programming language.
+
+70
+00:04:10.386 --> 00:04:12.750
+We make a little program that's
+really tiny and really short,
+
+71
+00:04:12.750 --> 00:04:14.100
+which you'll see just in a moment.
+
+72
+00:04:15.510 --> 00:04:18.890
+So if you're going to make use
+of the regular expressions,
+
+73
+00:04:18.890 --> 00:04:20.520
+you have to import regular expressions.
+
+74
+00:04:20.520 --> 00:04:24.360
+So you have to put that at
+the beginning of your application.
+
+75
+00:04:24.360 --> 00:04:27.830
+You have to say import re,
+so the re library.
+
+76
+00:04:27.830 --> 00:04:31.600
+And then you make use of
+these things with re.search.
+
+77
+00:04:31.600 --> 00:04:34.950
+And so search is the name of
+a function that's part of the regular
+
+78
+00:04:34.950 --> 00:04:35.708
+expression library.
+
+79
+00:04:35.708 --> 00:04:40.010
+You pass some parameters, and it's kind of
+like using the find method on strings.
+
+80
+00:04:40.010 --> 00:04:43.620
+And there's a couple of different
+ways that you can take things.
+
+81
+00:04:43.620 --> 00:04:45.790
+You can either use it to search for
+things and tell you,
+
+82
+00:04:45.790 --> 00:04:49.230
+did you find something that matched
+this regular expression in the string?
+
+83
+00:04:49.230 --> 00:04:53.230
+Or look through the string and pull out
+pieces that match the regular expression.
+
+84
+00:04:55.640 --> 00:04:58.300
+Okay, so here's our first example.
+
+85
+00:04:58.300 --> 00:05:02.176
+And this is an example that tells us, very
+much like some of our earlier examples,
+
+86
+00:05:02.176 --> 00:05:05.790
+we are looking through like
+the needle in the haystack problem.
+
+87
+00:05:05.790 --> 00:05:09.450
+where we're going to open a file, and
+we're going to loop through that file.
+
+88
+00:05:09.450 --> 00:05:14.220
+And we're going to take away the suffix,
+the blanks at the end, and
+
+89
+00:05:14.220 --> 00:05:19.423
+we're going to check to see if the line,
+and we're using the find to say,
+
+90
+00:05:19.423 --> 00:05:22.920
+does this line have
+the string 'From:' in it?
+
+91
+00:05:22.920 --> 00:05:24.860
+And so we're saying, what position is it?
+
+92
+00:05:24.860 --> 00:05:29.340
+And the position is line.find, and
+if that position is >= 0, away we go.
+
+93
+00:05:29.340 --> 00:05:30.390
+So then we can print the line.
+
+94
+00:05:30.390 --> 00:05:34.940
+So this is like, what this code really
+does is it looks through a whole file and
+
+95
+00:05:34.940 --> 00:05:37.965
+shows you the lines that start with "from",
+that's what this problem is solving.
+
+96
+00:05:37.965 --> 00:05:40.910
+Okay? By now that should
+be relatively simple.
+
+97
+00:05:40.910 --> 00:05:45.840
+Well, if we do the exact same thing in
+regular expressions. First we have to
+
+98
+00:05:45.840 --> 00:05:50.530
+import the regular expression library,
+let me change my color here.
+
+99
+00:05:50.530 --> 00:05:52.150
+Import the regular expression library.
+
+100
+00:05:52.150 --> 00:05:53.000
+Some of this is the same.
+
+101
+00:05:53.000 --> 00:05:56.060
+We open the file, we loop through the
+file, we strip the characters at the end.
+
+102
+00:05:56.060 --> 00:05:59.467
+And so now we're going to use,
+instead of the find operation,
+
+103
+00:05:59.467 --> 00:06:01.158
+we're going to use re.search.
+
+104
+00:06:01.158 --> 00:06:04.553
+So re.search is going to return us
+a true or a false, and
+
+105
+00:06:04.553 --> 00:06:06.670
+it has an regular expression.
+
+106
+00:06:06.670 --> 00:06:09.430
+Now later we will see that
+this can be very complex.
+
+107
+00:06:09.430 --> 00:06:14.220
+None of those characters F-r-o-m-colon are
+special regular expression characters, and
+
+108
+00:06:14.220 --> 00:06:15.280
+this is the thing we're looking at.
+
+109
+00:06:15.280 --> 00:06:18.170
+We're saying find,
+look through this line here, and
+
+110
+00:06:18.170 --> 00:06:22.490
+find that string 'From:'. If it's there, you
+get a true, if it's not, you get a false.
+
+111
+00:06:22.490 --> 00:06:25.075
+So this also will loop through the file,
+
+112
+00:06:25.075 --> 00:06:29.419
+printing out the lines that have
+the string 'From:' in them somewhere.
+
+113
+00:06:29.419 --> 00:06:33.636
+So we can make a tiny difference if
+we want, and actually in this case we
+
+114
+00:06:33.636 --> 00:06:38.439
+probably do want, to look for lines that
+only start with From at the beginning.
+
+115
+00:06:38.439 --> 00:06:41.947
+And so in Python, with just strings
+what we would do is we'd say, oh,
+
+116
+00:06:41.947 --> 00:06:46.010
+no, we're not going to use the find,
+we're going to use the startswith method.
+
+117
+00:06:46.010 --> 00:06:49.940
+So line is that string of characters
+that come in from the line, and
+
+118
+00:06:49.940 --> 00:06:54.170
+if it starts with a 'From:',
+that's the line we want to send.
+
+119
+00:06:54.170 --> 00:06:55.654
+That's the line we want to print.
+
+120
+00:06:55.654 --> 00:06:59.674
+Well, in regular expressions
+we're still going to use search, but
+
+121
+00:06:59.674 --> 00:07:02.991
+we're now going to use one of
+these special characters.
+
+122
+00:07:02.991 --> 00:07:08.360
+The ^ is that special character that
+matches the beginning of a line.
+
+123
+00:07:08.360 --> 00:07:09.880
+So if you look at ^From,
+
+124
+00:07:09.880 --> 00:07:14.190
+what we're really saying in this little
+programming language is, not look for
+
+125
+00:07:14.190 --> 00:07:17.830
+the string ^ but instead say look for
+From at the beginning of the line.
+
+126
+00:07:17.830 --> 00:07:19.930
+So we're asking a question here.
+
+127
+00:07:19.930 --> 00:07:22.634
+Dear regular expression,
+look through this line and
+
+128
+00:07:22.634 --> 00:07:25.240
+find out if you find the string
+From at the beginning.
+
+129
+00:07:25.240 --> 00:07:29.125
+And then return us a true or a false
+depending on whether that happens.
+
+130
+00:07:29.125 --> 00:07:34.000
+And so we sort of see,
+we change things and
+
+131
+00:07:34.000 --> 00:07:37.180
+you'll see in a bit that we will
+slowly but surely add more and
+
+132
+00:07:37.180 --> 00:07:40.620
+more functionality and intelligence
+to these little regular expressions,
+
+133
+00:07:40.620 --> 00:07:45.900
+rather than extending and adding more and
+more lines of code to our Python code.
+
+134
+00:07:45.900 --> 00:07:49.480
+So that's the caret is the first
+thing that we learned.
+
+135
+00:07:49.480 --> 00:07:52.450
+The next thing that we're
+going to learn is the dot.
+
+136
+00:07:52.450 --> 00:07:55.780
+The dot is the wildcard character, and
+
+137
+00:07:55.780 --> 00:08:00.230
+that's a little different than
+some things like *.* or whatever.
+
+138
+00:08:00.230 --> 00:08:03.742
+Usually the star is a wild card,
+but star's not a wild card.
+
+139
+00:08:03.742 --> 00:08:06.329
+The wild card is the dot character.
+
+140
+00:08:06.329 --> 00:08:10.950
+Star means any number of times.
+
+141
+00:08:10.950 --> 00:08:13.132
+Asterisk, any number of times.
+
+142
+00:08:13.132 --> 00:08:15.460
+Okay, so star means any number of times.
+
+143
+00:08:15.460 --> 00:08:18.560
+So if we carefully look
+at what this is saying.
+
+144
+00:08:21.240 --> 00:08:25.750
+What this says is, I am interested in,
+in my little programing language,
+
+145
+00:08:27.960 --> 00:08:31.710
+I'm interested in matching the start
+of the line, followed by the letter X.
+
+146
+00:08:31.710 --> 00:08:34.670
+The letter X is just the letter X,
+it's not special.
+
+147
+00:08:34.670 --> 00:08:37.880
+And then followed by any character,
+and then these two things go together,
+
+148
+00:08:37.880 --> 00:08:39.080
+star, dot.
+
+149
+00:08:39.080 --> 00:08:43.400
+means any character as many times as
+you like, followed by another colon.
+
+150
+00:08:43.400 --> 00:08:46.890
+So the X and the colon are not special,
+they're not code.
+
+151
+00:08:46.890 --> 00:08:50.590
+They're not on my little sheet of
+things that have meaning but the
+
+152
+00:08:50.590 --> 00:08:55.240
+caret means beginning of line, dot means
+any character, and star means as needed.
+
+153
+00:08:55.240 --> 00:09:00.350
+Now, that means that some lines will.
+a number of these lines will match.
+
+154
+00:09:00.350 --> 00:09:03.190
+This has an X,
+all these lines have X at the beginning.
+
+155
+00:09:03.190 --> 00:09:06.970
+And then they have some number of wildcard
+characters, and then they have a colon.
+
+156
+00:09:06.970 --> 00:09:08.310
+So that's all we're saying.
+
+157
+00:09:08.310 --> 00:09:12.980
+Find a line with X at the beginning, some
+number of characters, and then a colon.
+
+158
+00:09:12.980 --> 00:09:13.950
+This is okay.
+
+159
+00:09:15.380 --> 00:09:17.530
+If we wanted to say that
+was the last character,
+
+160
+00:09:17.530 --> 00:09:20.700
+I could have put a dollar sign here and then
+that would say the line would have to
+
+161
+00:09:20.700 --> 00:09:22.760
+end there, but
+then none of those things would match.
+
+162
+00:09:22.760 --> 00:09:27.590
+But, so X and colon are real characters
+and caret, dot, and asterisk are like part
+
+163
+00:09:27.590 --> 00:09:31.581
+of the little programming language
+that we've got going on here.
+
+164
+00:09:31.581 --> 00:09:36.527
+Now, you might want to do
+things like not have extra spaces.
+
+165
+00:09:36.527 --> 00:09:37.470
+Right?
+
+166
+00:09:37.470 --> 00:09:39.950
+And so if we look in this previous one.
+
+167
+00:09:39.950 --> 00:09:42.540
+We look at this X-Plane
+is behind schedule,
+
+168
+00:09:42.540 --> 00:09:47.500
+well it starts with an X and
+then has a colon and has all these things.
+
+169
+00:09:47.500 --> 00:09:51.720
+And we didn't really want to match that but
+it looked to the regular expression
+
+170
+00:09:51.720 --> 00:09:56.590
+like a thing that had an X plus a bunch
+of characters and then a colon.
+
+171
+00:09:56.590 --> 00:09:58.030
+And if we want to clean that up,
+
+172
+00:09:58.030 --> 00:10:02.270
+we can clean that up by just tuning
+our regular expression a little bit.
+
+173
+00:10:02.270 --> 00:10:05.700
+We can be a little more explicit.
+We can say, you know what?
+
+174
+00:10:05.700 --> 00:10:09.080
+We don't just want an X at the beginning
+of the line, we want an X-.
+
+175
+00:10:09.080 --> 00:10:11.342
+So that says I want to match X-.
+
+176
+00:10:11.342 --> 00:10:15.134
+And then, instead of any character,
+
+177
+00:10:15.134 --> 00:10:19.642
+which a dot would be any character,
+but \S.
+
+178
+00:10:19.642 --> 00:10:21.570
+\S on the sheet.
+
+179
+00:10:21.570 --> 00:10:25.520
+\S says a \S says non-blank character,
+
+180
+00:10:25.520 --> 00:10:30.320
+any non-blank character, not white space.
+
+181
+00:10:30.320 --> 00:10:34.730
+And then, instead of star here, star is
+zero or more times and plus is one or
+
+182
+00:10:34.730 --> 00:10:37.180
+more times, followed by a colon.
+
+183
+00:10:37.180 --> 00:10:42.260
+So, this little programming language
+says the line must start with X-.
+
+184
+00:10:43.950 --> 00:10:50.310
+At least one non-blank character, but they
+all have to be non-blank up to the colon.
+
+185
+00:10:50.310 --> 00:10:56.800
+And so, this starts with X-, at least
+one non-blank character, and a colon.
+
+186
+00:10:56.800 --> 00:11:01.310
+Starts with X-, any number of non-blank
+characters, followed by a colon.
+
+187
+00:11:01.310 --> 00:11:03.510
+This one starts with X-, it's fine.
+
+188
+00:11:03.510 --> 00:11:06.510
+But now it says oops,
+I am only looking for things.
+
+189
+00:11:06.510 --> 00:11:09.300
+I gotta find the colon before I find,
+I mean,
+
+190
+00:11:09.300 --> 00:11:12.430
+I hit a blank before I found the colon,
+so this line doesn't match.
+
+191
+00:11:15.060 --> 00:11:18.186
+So take a look at it.
+
+192
+00:11:18.186 --> 00:11:22.290
+You see how we're just slowly but
+surely adding a single character or
+
+193
+00:11:22.290 --> 00:11:25.370
+a couple of characters and
+it turns into code, right?
+
+194
+00:11:25.370 --> 00:11:28.710
+These are, we are communicating with this
+
+195
+00:11:28.710 --> 00:11:34.140
+regular expression code and
+telling it what we want to do.
+
+196
+00:11:34.140 --> 00:11:36.930
+Now, maybe we are not making any sense.
+
+197
+00:11:36.930 --> 00:11:39.560
+And it's quite often when you're
+making a regular expression
+
+198
+00:11:39.560 --> 00:11:40.720
+that you won't make any sense.
+
+199
+00:11:41.830 --> 00:11:45.945
+So, the search tells you the true
+or false, whether or not you're going to
+
+200
+00:11:45.945 --> 00:11:49.940
+find what you're looking for or
+not find what you're looking for.
+
+201
+00:11:49.940 --> 00:11:54.990
+And then the findall will
+go through a string and
+
+202
+00:11:54.990 --> 00:11:57.680
+look for
+something to happen multiple times.
+
+203
+00:11:57.680 --> 00:12:03.620
+And so, this slide also introduces a new
+syntax and that is the bracket syntax.
+
+204
+00:12:03.620 --> 00:12:07.450
+And, so,
+the square brackets enclose a set.
+
+205
+00:12:07.450 --> 00:12:12.680
+And so, the square bracket is
+a single character and what's
+
+206
+00:12:12.680 --> 00:12:16.380
+in between the square brackets is the
+legal things that we're willing to take.
+
+207
+00:12:16.380 --> 00:12:19.628
+So, what I'm saying here
+is this is one digit.
+
+208
+00:12:19.628 --> 00:12:25.140
+So [0-9] that says, one digit.
+
+209
+00:12:25.140 --> 00:12:28.640
+And then the plus is a suffix
+that says one or more digits.
+
+210
+00:12:28.640 --> 00:12:31.950
+If you had star it would be zero or
+more digits.
+
+211
+00:12:31.950 --> 00:12:34.072
+But in this case,
+I'm saying at least one digit.
+
+212
+00:12:34.072 --> 00:12:36.220
+And then any number of digits.
+
+213
+00:12:36.220 --> 00:12:36.720
+Okay?
+
+214
+00:12:38.990 --> 00:12:43.910
+So that is a digit somewhere in
+the range zero through nine.
+
+215
+00:12:43.910 --> 00:12:47.379
+You can have things like A-Z in there.
+
+216
+00:12:47.379 --> 00:12:49.852
+The sheet talks about this.
+
+217
+00:12:52.453 --> 00:12:55.370
+So that's a expression.
+
+218
+00:12:55.370 --> 00:12:58.870
+So at least one or more digits.
+
+219
+00:12:58.870 --> 00:13:04.520
+And findall is another method within
+the regular expression library that says,
+
+220
+00:13:04.520 --> 00:13:09.550
+go through this string I'm looking at and
+find all the situations that
+
+221
+00:13:09.550 --> 00:13:12.880
+all the substrings of that string that
+would match my regular expression.
+
+222
+00:13:13.970 --> 00:13:16.920
+So just to express roughly
+what we're doing here,
+
+223
+00:13:16.920 --> 00:13:18.410
+here is the string we're looking for.
+
+224
+00:13:18.410 --> 00:13:20.753
+And we're saying, dear regular expression.
+
+225
+00:13:20.753 --> 00:13:25.235
+Find me any string that's one or
+more digits and give them back to me.
+
+226
+00:13:25.235 --> 00:13:28.840
+That's one or more digits, that's one or
+more digits, and that's one or more digits.
+
+227
+00:13:28.840 --> 00:13:31.138
+It's like give them back to me.
+
+228
+00:13:31.138 --> 00:13:38.330
+And so it pulls those out and it puts them
+in a list and so this is the list we get.
+
+229
+00:13:38.330 --> 00:13:40.180
+And there's a lot of code in there.
+
+230
+00:13:40.180 --> 00:13:41.700
+Right?
+And this is a relatively
+
+231
+00:13:41.700 --> 00:13:43.160
+simple regular expression.
+
+232
+00:13:43.160 --> 00:13:44.900
+I'm looking for numbers.
+
+233
+00:13:46.500 --> 00:13:49.150
+One digit, two digits,
+five digits, 100 digits,
+
+234
+00:13:49.150 --> 00:13:53.770
+doesn't matter, some numbers,
+pull them out and give me a Python list.
+
+235
+00:13:53.770 --> 00:14:01.113
+So this is a Python list. So
+whenever you're extracting using findall,
+
+236
+00:14:01.113 --> 00:14:05.223
+what you get back is a Python list, and
+in that Python list we have three strings,
+
+237
+00:14:05.223 --> 00:14:08.030
+2, 19, and 42, and
+those are exactly those things.
+
+238
+00:14:08.030 --> 00:14:12.490
+So that's a pretty powerful little bit of
+code to say go through and find me all
+
+239
+00:14:12.490 --> 00:14:16.880
+the numbers, and give me the numbers,
+don't just tell me that they exist,
+
+240
+00:14:16.880 --> 00:14:20.055
+true or false, and
+I want the numbers to be pulled out.
+
+241
+00:14:22.911 --> 00:14:24.380
+If you think about how
+you'd have to do that.
+
+242
+00:14:24.380 --> 00:14:28.209
+I mean you'd have to use split and you'd have
+to do some checking, check for integers.
+
+243
+00:14:28.209 --> 00:14:32.070
+I mean you could do the same thing
+with splits and a for loop and
+
+244
+00:14:32.070 --> 00:14:35.175
+a couple of other things but
+that's, you know, five, six,
+
+245
+00:14:35.175 --> 00:14:38.924
+eight lines of code that regular
+expression does for you.
+
+246
+00:14:38.924 --> 00:14:39.726
+Okay?
+
+247
+00:14:39.726 --> 00:14:42.025
+So findall our way of extracting data.
+
+248
+00:14:42.025 --> 00:14:47.191
+search is our way of asking whether
+there is a possible match. findall
+
+249
+00:14:47.191 --> 00:14:51.674
+both says is there a match,
+how many matches are there, and
+
+250
+00:14:51.674 --> 00:14:54.447
+what are the things that I extracted?
+
+251
+00:14:54.447 --> 00:15:00.035
+And so, if f you look at this, the same
+string, right here, the same string.
+
+252
+00:15:00.035 --> 00:15:02.955
+And I use my one or
+more digits extraction,
+
+253
+00:15:02.955 --> 00:15:05.265
+I get three things in a Python list.
+
+254
+00:15:05.265 --> 00:15:10.205
+And if I say, I'm looking for
+any number of uppercase vowels,
+
+255
+00:15:10.205 --> 00:15:14.600
+A, E, I, O or U, in a bracket,
+remember, that's one character.
+
+256
+00:15:14.600 --> 00:15:16.710
+And this is one or more.
+
+257
+00:15:18.720 --> 00:15:21.240
+One or more uppercase vowels.
+
+258
+00:15:21.240 --> 00:15:26.970
+So find me in this string right here,
+find me all of the sequences of one or
+
+259
+00:15:26.970 --> 00:15:30.270
+more uppercase vowels and
+give them back to me.
+
+260
+00:15:30.270 --> 00:15:34.440
+So it looks through them, umm, nope.
+
+261
+00:15:34.440 --> 00:15:36.630
+So it gives us back an empty list.
+
+262
+00:15:36.630 --> 00:15:41.450
+So the fact that it didn't find it at
+all is why we get back an empty list.
+
+263
+00:15:41.450 --> 00:15:44.740
+We call findall, and
+you don't find anything.
+
+264
+00:15:44.740 --> 00:15:46.271
+So it doesn't return false.
+
+265
+00:15:46.271 --> 00:15:49.572
+It always returns a list and
+if there was nothing found,
+
+266
+00:15:49.572 --> 00:15:51.762
+it returns a list with nothing in it.
+
+267
+00:15:51.762 --> 00:15:52.262
+Okay?
+
+268
+00:15:53.980 --> 00:16:01.630
+Now these matching operations
+are what are called "greedy".
+
+269
+00:16:01.630 --> 00:16:07.510
+And greedy means that as they're
+extracting, they're pushing outwards.
+
+270
+00:16:07.510 --> 00:16:11.455
+And it wants to return in the return
+codes that you're getting.
+
+271
+00:16:14.822 --> 00:16:17.480
+It wants to return
+the largest possible string.
+
+272
+00:16:18.570 --> 00:16:20.028
+So let's just take a look at this.
+
+273
+00:16:20.028 --> 00:16:22.120
+So here is a thing that says,
+
+274
+00:16:22.120 --> 00:16:27.540
+beginning of line, starting with an F,
+any character, one or more times.
+
+275
+00:16:27.540 --> 00:16:28.460
+Right?
+
+276
+00:16:28.460 --> 00:16:30.920
+Actually I already had
+those arrows right there.
+
+277
+00:16:30.920 --> 00:16:34.160
+First character has got to be an F
+in the first character of the line,
+
+278
+00:16:34.160 --> 00:16:37.100
+followed by any number of characters,
+
+279
+00:16:37.100 --> 00:16:41.360
+blank. nonblank, because dot matches
+all characters, and then colon.
+
+280
+00:16:41.360 --> 00:16:47.150
+So you think, oh that's going to
+go from colon and give me that.
+
+281
+00:16:47.150 --> 00:16:49.330
+But it doesn't, because it's greedy.
+
+282
+00:16:49.330 --> 00:16:54.370
+And so it could either give you
+this matches and that matches.
+
+283
+00:16:54.370 --> 00:16:56.800
+We could tell it I'm not
+interested in a colon.
+
+284
+00:16:56.800 --> 00:16:58.558
+You could say start with an F,
+
+285
+00:16:58.558 --> 00:17:03.870
+as many non-colon characters stopping
+with a colon, you could say that.
+
+286
+00:17:03.870 --> 00:17:10.090
+So it could either legitimately say that
+is starting with F and ending in colon.
+
+287
+00:17:10.090 --> 00:17:13.700
+Or, it legitimately could say,
+starting with F and ending in colon.
+
+288
+00:17:13.700 --> 00:17:15.750
+Greedy says, prefer the larger.
+
+289
+00:17:17.330 --> 00:17:20.260
+Right?
+So, greedy says make the string as large
+
+290
+00:17:20.260 --> 00:17:21.330
+as possible.
+
+291
+00:17:21.330 --> 00:17:23.490
+And so that's why we get this string.
+
+292
+00:17:23.490 --> 00:17:26.840
+Both strings legitimately match, but
+
+293
+00:17:26.840 --> 00:17:29.620
+if you have a choice,
+take the largest of the two strings.
+
+294
+00:17:29.620 --> 00:17:31.093
+So, non-greedy matching.
+
+295
+00:17:31.093 --> 00:17:35.648
+Sometimes if you really want to only stop
+at that first colon, then you add this
+
+296
+00:17:35.648 --> 00:17:40.567
+little question mark, and the question
+mark says, don't do the greedy matching.
+
+297
+00:17:40.567 --> 00:17:44.956
+Okay? And so that says satisfy
+the regular expression with
+
+298
+00:17:44.956 --> 00:17:48.925
+the shortest string rather
+than the longest string.
+
+299
+00:17:48.925 --> 00:17:53.130
+And so other than this greedy matching,
+it starts with an F and ends in a colon.
+
+300
+00:17:53.130 --> 00:17:55.130
+Starts with an F and ends in a colon.
+
+301
+00:17:55.130 --> 00:17:59.436
+Well, non-greedy matching
+says prefer this one.
+
+302
+00:17:59.436 --> 00:18:02.959
+That's the one we want because
+don't go as far as you can and
+
+303
+00:18:02.959 --> 00:18:05.298
+sometimes that's really important.
+
+304
+00:18:05.298 --> 00:18:08.440
+And so in this one we get 'From:' back.
+
+305
+00:18:08.440 --> 00:18:10.272
+Okay?
+
+306
+00:18:10.272 --> 00:18:12.830
+So, that gives us kind of a start.
+
+307
+00:18:12.830 --> 00:18:15.410
+We'll continue in a moment
+on regular expressions.

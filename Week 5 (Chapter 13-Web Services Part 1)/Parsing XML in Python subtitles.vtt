@@ -1,0 +1,988 @@
+WEBVTT
+
+1
+00:00:08.921 --> 00:00:11.880
+So, wow, that was a lot of terminology.
+
+2
+00:00:11.880 --> 00:00:15.300
+XML, schema, minOccurs, maxOccurs.
+
+3
+00:00:16.520 --> 00:00:17.850
+It's time to to write some code.
+
+4
+00:00:17.850 --> 00:00:20.810
+That's what we're here for actually,
+is to just write some code.
+
+5
+00:00:20.810 --> 00:00:23.820
+And this is the payoff.
+
+6
+00:00:23.820 --> 00:00:26.850
+Part of it is so that when I tell you
+about this stuff and I say, oh and
+
+7
+00:00:26.850 --> 00:00:31.240
+there's an attribute, then you'll
+know what you're doing. Okay?
+
+8
+00:00:31.240 --> 00:00:38.120
+And so it turns out that
+XML is built into Python.
+
+9
+00:00:38.120 --> 00:00:40.350
+There's a lot of things
+that are built into Python.
+
+10
+00:00:40.350 --> 00:00:43.230
+That's kind of why we love it,
+that's why it's charming.
+
+11
+00:00:43.230 --> 00:00:44.800
+So let's take a look.
+
+12
+00:00:44.800 --> 00:00:47.890
+And hopefully you've got, at some level,
+all the code downloaded for
+
+13
+00:00:47.890 --> 00:00:53.720
+this class in a little folder called code,
+and you've got lots of files.
+
+14
+00:00:53.720 --> 00:00:59.280
+And if we take a look at xml1,
+there's xml1.py.
+
+15
+00:00:59.280 --> 00:01:01.280
+So that's our little program.
+
+16
+00:01:01.280 --> 00:01:05.200
+Now what I'm doing in this program
+is I'm actually not retrieving this
+
+17
+00:01:05.200 --> 00:01:09.980
+XML off the network. If you did you'd do
+a sort of urllib and you'd do a read.
+
+18
+00:01:09.980 --> 00:01:12.020
+We learned all that in
+the previous lecture.
+
+19
+00:01:12.020 --> 00:01:15.460
+So somehow you've got this XML
+data in the form, in this case,
+
+20
+00:01:15.460 --> 00:01:16.990
+in the form of a string.
+
+21
+00:01:16.990 --> 00:01:18.220
+So that's the XML data.
+
+22
+00:01:18.220 --> 00:01:19.190
+It might have come from the Internet,
+
+23
+00:01:19.190 --> 00:01:22.020
+It might have come from a database,
+which will be what we'll do next.
+
+24
+00:01:22.020 --> 00:01:23.390
+But somehow we've got this.
+
+25
+00:01:23.390 --> 00:01:24.710
+Now, this syntax,
+
+26
+00:01:24.710 --> 00:01:27.370
+if you haven't seen it, this is
+what's called a triple quoted string.
+
+27
+00:01:27.370 --> 00:01:31.550
+And the start of the triple
+quoted string is three quotes and
+
+28
+00:01:31.550 --> 00:01:33.590
+the end of it is three quotes.
+
+29
+00:01:33.590 --> 00:01:37.740
+And I'm using single quotes because
+double quotes are actually part of XML.
+
+30
+00:01:37.740 --> 00:01:41.650
+So, this is just one big string
+that goes from here to here.
+
+31
+00:01:41.650 --> 00:01:42.490
+Okay?
+
+32
+00:01:42.490 --> 00:01:44.430
+And the newlines are actually
+part of the string.
+
+33
+00:01:44.430 --> 00:01:46.730
+Newline, newline, newline,
+newline, newline.
+
+34
+00:01:46.730 --> 00:01:53.540
+It's just a quick way to have multiple
+lines of data all in the same place, okay?
+
+35
+00:01:53.540 --> 00:01:57.120
+And so that is sort of my XML source.
+
+36
+00:01:57.120 --> 00:01:58.130
+Okay.
+
+37
+00:01:58.130 --> 00:01:59.780
+So that is the data.
+
+38
+00:01:59.780 --> 00:02:04.412
+But remember, this might come
+from a URL or some other thing.
+
+39
+00:02:04.412 --> 00:02:07.130
+urllib or a GET, or
+who knows what we might, but
+
+40
+00:02:07.130 --> 00:02:08.450
+we got our hands on it somewhere.
+
+41
+00:02:08.450 --> 00:02:11.240
+We might have even opened a file up,
+and we're reading through the file and
+
+42
+00:02:11.240 --> 00:02:12.670
+find the XML in the file.
+
+43
+00:02:12.670 --> 00:02:14.850
+But this is just the XML that we've got.
+
+44
+00:02:14.850 --> 00:02:17.260
+The important part, it's in a string.
+
+45
+00:02:17.260 --> 00:02:20.680
+Now, you could use regular expressions,
+you could use find operations.
+
+46
+00:02:20.680 --> 00:02:23.480
+You could look for a less than,
+then you could look for the tag.
+
+47
+00:02:23.480 --> 00:02:27.500
+You could write some really
+nasty code if you wanted to.
+
+48
+00:02:27.500 --> 00:02:28.350
+Please don't.
+
+49
+00:02:28.350 --> 00:02:34.800
+Because built in to Python
+is a XML parsing mechanism.
+
+50
+00:02:34.800 --> 00:02:35.300
+Okay?
+
+51
+00:02:36.370 --> 00:02:40.780
+And so this is our import statement
+pulling in this thing as ET
+
+52
+00:02:40.780 --> 00:02:45.700
+gives us kind of a shortcut to this
+really long xml.etree.ElementTree as ET.
+
+53
+00:02:45.700 --> 00:02:46.970
+Just put this in and
+
+54
+00:02:46.970 --> 00:02:51.550
+then we'll just use ET as our way
+to get at this functionality.
+
+55
+00:02:51.550 --> 00:02:56.313
+So this is sort of a library that
+we're naming in this code ET.
+
+56
+00:02:56.313 --> 00:03:01.297
+And so all we do is we basically say,
+hey, take this string data and
+
+57
+00:03:01.297 --> 00:03:05.050
+pass it into the element tree library.
+
+58
+00:03:05.050 --> 00:03:06.470
+And parse that string.
+
+59
+00:03:06.470 --> 00:03:09.826
+So this is the act of parsing.
+
+60
+00:03:09.826 --> 00:03:12.024
+It's like de-serialization.
+
+61
+00:03:12.024 --> 00:03:14.435
+De-serial, I can't write that.
+
+62
+00:03:14.435 --> 00:03:15.900
+De-serialization.
+
+63
+00:03:15.900 --> 00:03:18.510
+And that's, I don't know how I got this
+XML, I don't know how it arrived on my
+
+64
+00:03:18.510 --> 00:03:21.520
+doorstep, but I want to make sense
+of it inside of my application.
+
+65
+00:03:22.780 --> 00:03:24.250
+So we're de-serializing it.
+
+66
+00:03:24.250 --> 00:03:28.450
+The method inside the element
+tree library is the fromstring,
+
+67
+00:03:28.450 --> 00:03:31.960
+where we say pass it in the string,
+and we get back an object.
+
+68
+00:03:31.960 --> 00:03:33.100
+Now, I named it tree.
+
+69
+00:03:34.130 --> 00:03:35.850
+It makes sense to name it tree.
+
+70
+00:03:35.850 --> 00:03:37.270
+By the way,
+this is just my text editor, so
+
+71
+00:03:37.270 --> 00:03:39.800
+you can ignore those little blue tildes.
+
+72
+00:03:39.800 --> 00:03:41.010
+So, tree is a variable.
+
+73
+00:03:41.010 --> 00:03:42.570
+I could have called this X for I care.
+
+74
+00:03:42.570 --> 00:03:44.470
+And it would be X and X.
+
+75
+00:03:44.470 --> 00:03:46.940
+But tree is kind of what it is.
+
+76
+00:03:46.940 --> 00:03:54.219
+And so what this does is it parses it and
+gives us back an object.
+
+77
+00:03:54.219 --> 00:03:58.010
+And we can do things to that object to
+actually look at the underlying data.
+
+78
+00:03:58.010 --> 00:04:02.890
+So this fromstring finds the less than,
+finds this less than, finds that less than,
+
+79
+00:04:02.890 --> 00:04:05.550
+makes all these things, yadda yadda yadda,
+and reads all this stuff.
+
+80
+00:04:05.550 --> 00:04:07.460
+You could write it, but you don't want to.
+
+81
+00:04:07.460 --> 00:04:08.050
+Right?
+
+82
+00:04:08.050 --> 00:04:09.380
+So you just do it.
+
+83
+00:04:09.380 --> 00:04:14.320
+So then what happens is,
+go read the documentation on this.
+
+84
+00:04:14.320 --> 00:04:18.200
+And it basically says, you can take
+this object that's returned, and
+
+85
+00:04:18.200 --> 00:04:20.660
+call various methods on that object.
+
+86
+00:04:20.660 --> 00:04:26.610
+And so what we're basically saying
+is go find the tag of name.
+
+87
+00:04:26.610 --> 00:04:27.110
+And so, that.
+
+88
+00:04:29.130 --> 00:04:32.729
+This little bit of code right
+here, tree.find of name,
+
+89
+00:04:32.729 --> 00:04:34.770
+gets this thing out of the XML.
+
+90
+00:04:36.400 --> 00:04:38.780
+Then that itself is an object and
+
+91
+00:04:38.780 --> 00:04:44.330
+we can say oh,
+we would like the text of that thing.
+
+92
+00:04:44.330 --> 00:04:47.080
+So that looks inside this thing and
+pulls that text out.
+
+93
+00:04:48.080 --> 00:04:48.580
+Okay?
+
+94
+00:04:50.727 --> 00:04:55.548
+Or we can say tree.find email.
+
+95
+00:04:55.548 --> 00:04:58.410
+That is this thing right here,
+that's the tag.
+
+96
+00:04:59.520 --> 00:05:00.860
+This looks a lot like Beautiful Soup.
+
+97
+00:05:00.860 --> 00:05:04.050
+Remember, Beautiful Soup is
+kind of a tree of HTML tags.
+
+98
+00:05:04.050 --> 00:05:07.325
+The difference is the tags in XML
+are tags that we've defined, right?
+
+99
+00:05:07.325 --> 00:05:09.396
+Tree.find email, bingo.
+
+100
+00:05:09.396 --> 00:05:11.915
+And then .get is a method
+that we can call.
+
+101
+00:05:15.445 --> 00:05:19.278
+We call the .get method, and
+we look for the hide attribute,
+
+102
+00:05:19.278 --> 00:05:22.390
+which effectively pulls
+this little yes guy out.
+
+103
+00:05:22.390 --> 00:05:23.180
+Okay?
+
+104
+00:05:23.180 --> 00:05:24.720
+And on and on and on and on and on.
+
+105
+00:05:24.720 --> 00:05:27.850
+And you can go read
+the element tree stuff.
+
+106
+00:05:27.850 --> 00:05:32.520
+And so there is just, the whole thing
+is parse or de-serialize the data,
+
+107
+00:05:32.520 --> 00:05:36.610
+get back an internal object that
+makes sense inside of Python and
+
+108
+00:05:36.610 --> 00:05:40.750
+then start using that object to look for
+things inside the XML.
+
+109
+00:05:41.940 --> 00:05:43.770
+And so
+this is where the magic is all happening.
+
+110
+00:05:43.770 --> 00:05:48.160
+That's where all the hard stuff is
+happening and the fun stuff is happening.
+
+111
+00:05:48.160 --> 00:05:49.146
+Let me just go run that.
+
+112
+00:05:53.047 --> 00:05:54.325
+python xml1
+
+113
+00:05:54.325 --> 00:05:56.182
+Oh, come back.
+
+114
+00:05:56.182 --> 00:06:02.336
+python, no, clear, escape.
+
+115
+00:06:02.336 --> 00:06:03.915
+python xml1
+
+116
+00:06:03.915 --> 00:06:06.868
+This is totally self-contained,
+and it pulls out the name and
+
+117
+00:06:06.868 --> 00:06:08.770
+the attribute of that email thing.
+
+118
+00:06:08.770 --> 00:06:14.065
+So not too impressive but
+it does what it was supposed to do.
+
+119
+00:06:14.065 --> 00:06:17.590
+Okay, so that's our first little
+application that we're going to play with.
+
+120
+00:06:17.590 --> 00:06:23.990
+And so here's another one and this one is
+now going to look a list of things, right?
+
+121
+00:06:23.990 --> 00:06:28.180
+And so sometimes you have a tag within
+a tag within a tag, and there's some text.
+
+122
+00:06:28.180 --> 00:06:30.570
+And that was exactly what
+we did in that last one.
+
+123
+00:06:30.570 --> 00:06:32.170
+We pulled out text and attribute.
+
+124
+00:06:32.170 --> 00:06:36.140
+But what we're going to do here
+is we have a set of users, and
+
+125
+00:06:36.140 --> 00:06:38.080
+then there's little user elements.
+
+126
+00:06:38.080 --> 00:06:39.940
+And you'd think of this as
+like dot dot dot dot dot.
+
+127
+00:06:39.940 --> 00:06:41.630
+There could be many of these things.
+
+128
+00:06:41.630 --> 00:06:44.750
+So we want to parse out
+the users from within this.
+
+129
+00:06:44.750 --> 00:06:49.620
+The fact that I'm using plural and
+singular,
+
+130
+00:06:49.620 --> 00:06:55.320
+it's very descriptive but
+it has no meaning.
+
+131
+00:06:55.320 --> 00:07:00.420
+This could be X, it could be Y but
+we tend to do it when we do XML,
+
+132
+00:07:00.420 --> 00:07:04.960
+when we have a tag that is expected to
+have a bunch of the things of that.
+
+133
+00:07:04.960 --> 00:07:08.340
+We'll tend to use the plural name for
+the tag and then the singular name for
+
+134
+00:07:08.340 --> 00:07:09.530
+each of the things in there.
+
+135
+00:07:09.530 --> 00:07:14.060
+So it's a really good common thing,
+but don't get stuck on the notion that
+
+136
+00:07:14.060 --> 00:07:18.870
+somehow the world understands
+plurals and singulars.
+
+137
+00:07:18.870 --> 00:07:20.560
+Okay?
+So, don't get stuck on that.
+
+138
+00:07:20.560 --> 00:07:21.700
+So, here we go.
+
+139
+00:07:21.700 --> 00:07:25.360
+And so, what we're doing, again,
+is we're using this triple quoted string,
+
+140
+00:07:25.360 --> 00:07:28.630
+so this again is the XML that
+could've came from anywhere.
+
+141
+00:07:28.630 --> 00:07:32.012
+And then we're going to call fromstring,
+
+142
+00:07:32.012 --> 00:07:37.287
+we're going to pass in a string,
+and we are going to get back a tree.
+
+143
+00:07:37.287 --> 00:07:42.854
+I named it stuff this time,
+okay? So that is stuff,
+
+144
+00:07:42.854 --> 00:07:47.295
+is a, you could almost think of stuff as.
+
+145
+00:07:47.295 --> 00:07:53.057
+You know we've got stuff and
+then under stuff we've got users and
+
+146
+00:07:53.057 --> 00:07:57.561
+then under users we've got
+user user dot dot dot and
+
+147
+00:07:57.561 --> 00:08:02.170
+then under user we've got X
+which is an attribute and
+
+148
+00:08:02.170 --> 00:08:05.348
+then we've got a thing that's ID.
+
+149
+00:08:05.348 --> 00:08:08.458
+And then a name.
+
+150
+00:08:08.458 --> 00:08:12.490
+And then Brent or one, and Chuck.
+
+151
+00:08:13.660 --> 00:08:19.335
+So this is like this
+tree view of this stuff,
+
+152
+00:08:19.335 --> 00:08:25.695
+and so by calling fromstring, we are
+reading this and producing this structure.
+
+153
+00:08:25.695 --> 00:08:28.545
+Now, it doesn't look that way
+inside Python, it just is
+
+154
+00:08:28.545 --> 00:08:33.425
+something that you can now say, walk
+down here and grab me all these things.
+
+155
+00:08:33.425 --> 00:08:35.070
+Because that's what's going on here.
+
+156
+00:08:35.070 --> 00:08:38.110
+Go down here and grab me all these things.
+
+157
+00:08:38.110 --> 00:08:38.810
+Okay?
+
+158
+00:08:38.810 --> 00:08:43.120
+And so, that right there of walk down and
+
+159
+00:08:43.120 --> 00:08:46.930
+grab all those things is what
+this line does right here.
+
+160
+00:08:46.930 --> 00:08:48.910
+Stuff is that whole tree.
+
+161
+00:08:48.910 --> 00:08:51.970
+Findall users/user.
+
+162
+00:08:51.970 --> 00:08:54.605
+So that's a path, right?
+
+163
+00:08:54.605 --> 00:08:58.170
+users/user, it's really all of
+these. There's going to be many
+
+164
+00:08:58.170 --> 00:08:59.210
+of these second thing.
+
+165
+00:08:59.210 --> 00:09:03.200
+Find everything that matches
+that little users/user and
+
+166
+00:09:03.200 --> 00:09:09.050
+return me a Python list with one
+entry for each of the tags.
+
+167
+00:09:09.050 --> 00:09:12.640
+So this turns into a,
+this list ends up being
+
+168
+00:09:14.280 --> 00:09:17.690
+a Python array that
+represents those two users.
+
+169
+00:09:17.690 --> 00:09:22.510
+And each user that you get in that
+array represents the sequence.
+
+170
+00:09:23.740 --> 00:09:27.340
+So list ends up being a list of users.
+
+171
+00:09:27.340 --> 00:09:29.830
+And because it's a list,
+we can say how many did we get?
+
+172
+00:09:31.370 --> 00:09:33.640
+In this case we should hopefully get two.
+
+173
+00:09:33.640 --> 00:09:34.550
+Then we can write a for loop.
+
+174
+00:09:35.973 --> 00:09:37.330
+Okay?
+For item in list.
+
+175
+00:09:38.490 --> 00:09:40.332
+And the things that are in our list.
+
+176
+00:09:45.534 --> 00:09:48.970
+These are also XML nodes.
+
+177
+00:09:48.970 --> 00:09:54.160
+They're node objects, and so
+they have like the ability to do find, and
+
+178
+00:09:54.160 --> 00:09:57.300
+pull the text out or find and
+get attributes, right?
+
+179
+00:09:57.300 --> 00:10:01.620
+And so we do the same thing we did in
+the previous thing where we say item but
+
+180
+00:10:01.620 --> 00:10:07.421
+really item is now this guy and we're
+saying .find which means find this guy and
+
+181
+00:10:07.421 --> 00:10:11.950
+then .text, oops, well, sorry.
+
+182
+00:10:11.950 --> 00:10:13.400
+Do that better.
+
+183
+00:10:13.400 --> 00:10:16.171
+So, item is this.
+
+184
+00:10:16.171 --> 00:10:20.854
+Find of id gets this,
+
+185
+00:10:20.854 --> 00:10:24.758
+and then .text,
+
+186
+00:10:24.758 --> 00:10:28.940
+.text gets this.
+
+187
+00:10:28.940 --> 00:10:32.690
+So we're sort of, but now we're going to
+do this inside of a loop so it's going to
+
+188
+00:10:32.690 --> 00:10:36.469
+do this as many times, over, and over,
+and over, as many users as there are.
+
+189
+00:10:37.710 --> 00:10:41.190
+Okay?
+And again, this is really simple,
+
+190
+00:10:41.190 --> 00:10:45.410
+and the XML I'll be giving you for
+assignments is also really simple.
+
+191
+00:10:45.410 --> 00:10:48.510
+But you could also, at the end of the day,
+even if this turned out to be super
+
+192
+00:10:48.510 --> 00:10:51.930
+complex, sooner or later you would
+just kind of work together and
+
+193
+00:10:51.930 --> 00:10:56.260
+build a bit of Python code that would
+pull the pieces that you're interested.
+
+194
+00:10:56.260 --> 00:10:57.330
+Because that's what you're looking for.
+
+195
+00:10:57.330 --> 00:10:59.920
+You're looking for like
+a list of the people's names.
+
+196
+00:10:59.920 --> 00:11:00.420
+Okay?
+
+197
+00:11:02.960 --> 00:11:03.930
+so, let's take a look at this one.
+
+198
+00:11:03.930 --> 00:11:06.091
+This one's called xmlL2.py.
+
+199
+00:11:06.091 --> 00:11:10.608
+And if we take a look at vi xml2,
+oh come back,
+
+200
+00:11:10.608 --> 00:11:17.710
+click xml2.py, there's that code.
+
+201
+00:11:17.710 --> 00:11:21.240
+Again, the triple quoted string and
+the code we just showed you.
+
+202
+00:11:21.240 --> 00:11:27.799
+So if I run this, python xml2.py, boom.
+
+203
+00:11:27.799 --> 00:11:32.359
+Looped through, found the id,
+found the attribute on that thing,
+
+204
+00:11:32.359 --> 00:11:36.780
+found the name, and
+looped through and did it twice.
+
+205
+00:11:36.780 --> 00:11:38.270
+There were two users.
+
+206
+00:11:38.270 --> 00:11:41.410
+This was the first one, and
+this was the second one.
+
+207
+00:11:41.410 --> 00:11:42.090
+Okay?
+
+208
+00:11:42.090 --> 00:11:45.430
+Now, again, the data that you're probably
+going to be working with came from a file or
+
+209
+00:11:45.430 --> 00:11:49.680
+URL, blah, blah, blah,
+but you get the idea.
+
+210
+00:11:49.680 --> 00:11:54.400
+And this is very simple, but from these
+two basic patterns of looking down to
+
+211
+00:11:54.400 --> 00:11:57.273
+find a tag or
+looking down to find a set of tags,
+
+212
+00:11:57.273 --> 00:12:00.837
+that's the two basic things
+that you tend to do with XML.
+
+213
+00:12:00.837 --> 00:12:06.820
+And it's not too many lines of code to find
+your way into even relatively complex XML.
+
+214
+00:12:08.570 --> 00:12:13.060
+So that sort of summarizes what
+we're going to talk about for XML.
+
+215
+00:12:13.060 --> 00:12:17.350
+And XML was the hard stuff, but
+next we'll talk about the fun stuff.
+
+216
+00:12:17.350 --> 00:12:19.190
+We'll talk about JavaScript
+Object Notation next.

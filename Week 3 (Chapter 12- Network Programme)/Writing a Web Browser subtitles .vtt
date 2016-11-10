@@ -1,0 +1,817 @@
+WEBVTT
+
+1
+00:00:09.021 --> 00:00:14.740
+Okay, so all that was pretty complex,
+learning the HTTP application protocol.
+
+2
+00:00:14.740 --> 00:00:17.240
+It's going to be simpler when
+we actually do it in Python.
+
+3
+00:00:17.240 --> 00:00:18.830
+That's what's fun about writing code.
+
+4
+00:00:18.830 --> 00:00:22.790
+It's like, once you get it working
+then you can borrow my code.
+
+5
+00:00:22.790 --> 00:00:26.320
+So if you recall,
+we start with this socket, right?
+
+6
+00:00:26.320 --> 00:00:29.810
+Our application is
+running on the one side.
+
+7
+00:00:29.810 --> 00:00:34.920
+Our application runs on the one side,
+oops, get that right.
+
+8
+00:00:34.920 --> 00:00:39.160
+Our application is running here on our
+computer, it creates a socket, and
+
+9
+00:00:39.160 --> 00:00:40.790
+then remember the connect?
+
+10
+00:00:40.790 --> 00:00:45.390
+These first three lines we saw before. The
+connect extends the socket to talk to the web
+
+11
+00:00:45.390 --> 00:00:48.638
+server that is files on disk drives,
+etc., etc.
+
+12
+00:00:48.638 --> 00:00:53.960
+So, this connect is the thing
+that extends the socket.
+
+13
+00:00:53.960 --> 00:00:56.460
+I like to think of it as like,
+you have a socket and then you sort
+
+14
+00:00:56.460 --> 00:00:59.320
+of push it across the Internet and
+then lock in on the other side.
+
+15
+00:01:00.670 --> 00:01:03.530
+If there was no web server,
+this would blow up right here.
+
+16
+00:01:03.530 --> 00:01:07.600
+This actually works all the time because it's
+like just open a connection that I'm going to
+
+17
+00:01:07.600 --> 00:01:11.860
+tell you what to connect to later and
+then the connect says make the connection.
+
+18
+00:01:11.860 --> 00:01:15.850
+But when we're all done at this point in
+our code, we import the socket library,
+
+19
+00:01:15.850 --> 00:01:19.720
+we create the end point, and
+then we push the end point through the web,
+
+20
+00:01:19.720 --> 00:01:24.080
+we now have a socket that sort of starts
+in our computer, our application, and
+
+21
+00:01:24.080 --> 00:01:25.740
+ends in the web server application.
+
+22
+00:01:25.740 --> 00:01:27.270
+So that's the web server, and
+
+23
+00:01:27.270 --> 00:01:31.320
+port 80 just happens to be
+the phone number we called them on.
+
+24
+00:01:31.320 --> 00:01:34.405
+And the one thing that's different about
+a socket compared to a file is you
+
+25
+00:01:34.405 --> 00:01:37.065
+can both send and receive to the socket.
+
+26
+00:01:37.065 --> 00:01:37.755
+And so like I said,
+
+27
+00:01:37.755 --> 00:01:40.711
+the first thing that you got to figure
+out in a protocol is who starts.
+
+28
+00:01:40.711 --> 00:01:44.729
+We are the browser, we are the client,
+we initiated the connection,
+
+29
+00:01:44.729 --> 00:01:46.575
+we initiated the connection.
+
+30
+00:01:46.575 --> 00:01:48.585
+We're not going to look at the
+code in here, but
+
+31
+00:01:48.585 --> 00:01:53.435
+there's a similar set of first few lines
+to say, I'm ready to get a connection.
+
+32
+00:01:53.435 --> 00:01:56.020
+So that's different code. But
+we're initiating the connection.
+
+33
+00:01:56.020 --> 00:01:57.560
+So if this is the HTTP,
+
+34
+00:01:57.560 --> 00:02:03.100
+the HTTP protocol, then we have the
+responsibility of sending the GET request.
+
+35
+00:02:03.100 --> 00:02:06.760
+But, it looks exactly like
+what we sent before.
+
+36
+00:02:06.760 --> 00:02:08.850
+We did this with Telnet before.
+
+37
+00:02:08.850 --> 00:02:11.910
+We send a GET request followed by
+a blank followed by the document we're
+
+38
+00:02:11.910 --> 00:02:16.610
+interested in followed by a blank
+followed by the web protocol we want to use.
+
+39
+00:02:16.610 --> 00:02:22.530
+We're using the old protocol HTTP 1.0,
+and then we hit the Enter twice, \n\n.
+
+40
+00:02:22.530 --> 00:02:24.690
+So it's exactly what I typed.
+
+41
+00:02:24.690 --> 00:02:27.710
+They difference is Python's
+typing it now, right?
+
+42
+00:02:27.710 --> 00:02:30.670
+I'm not typing it, Python's typing it.
+
+43
+00:02:30.670 --> 00:02:34.412
+And so we've sent this request across,
+we send the GET across.
+
+44
+00:02:34.412 --> 00:02:36.450
+And then this server retrieves it,
+parses it.
+
+45
+00:02:36.450 --> 00:02:37.760
+Says, I know what you want.
+
+46
+00:02:37.760 --> 00:02:40.700
+Let me go open a file and
+let me send that file back.
+
+47
+00:02:40.700 --> 00:02:42.030
+And it starts sending the file back.
+
+48
+00:02:43.050 --> 00:02:44.910
+Send, send, send, send, send, right?
+
+49
+00:02:44.910 --> 00:02:47.060
+And so then what we got to do is
+we got to write a loop to read,
+
+50
+00:02:47.060 --> 00:02:48.450
+read, read, read, read.
+
+51
+00:02:48.450 --> 00:02:50.940
+And that's what this little
+loop right here is doing.
+
+52
+00:02:50.940 --> 00:02:55.740
+While True, we're going to receive
+up to 512 characters at a time.
+
+53
+00:02:55.740 --> 00:02:58.050
+That says give me up to 512.
+
+54
+00:02:58.050 --> 00:03:02.320
+If it's only sent a little bit, you know
+like 100 characters, you'll get it back.
+
+55
+00:03:02.320 --> 00:03:04.840
+So the length of the data is important.
+
+56
+00:03:04.840 --> 00:03:09.780
+If you get nothing, if you've got the end
+of file, when this has finally sent all of
+
+57
+00:03:09.780 --> 00:03:15.100
+its data, it sends a special mark
+that says, oh that's the end of file.
+
+58
+00:03:15.100 --> 00:03:19.720
+And when that end of file reaches you,
+then this call to receive
+
+59
+00:03:19.720 --> 00:03:21.550
+will give you back -1.
+
+60
+00:03:21.550 --> 00:03:24.680
+There is no data, it's less than one.
+And then we break out of the loop.
+
+61
+00:03:24.680 --> 00:03:29.920
+And then all we do is, we just print that,
+so the data comes out on the screen.
+
+62
+00:03:29.920 --> 00:03:33.320
+Print the data, and
+then close the socket, okay?
+
+63
+00:03:33.320 --> 00:03:35.859
+So that is a very simple web browser.
+
+64
+00:03:37.260 --> 00:03:37.870
+So let's run that.
+
+65
+00:03:39.510 --> 00:03:41.150
+So here's a little trick.
+
+66
+00:03:41.150 --> 00:03:45.180
+Don't name your programs socket.py, because
+then you actually conflict with that
+
+67
+00:03:45.180 --> 00:03:49.420
+socket library and then you'll get,
+this import will start blowing up, right?
+
+68
+00:03:49.420 --> 00:03:50.470
+So don't do that.
+
+69
+00:03:50.470 --> 00:03:52.180
+So this is the code I just showed you.
+
+70
+00:03:52.180 --> 00:03:54.150
+Import the socket, create the end point,
+
+71
+00:03:54.150 --> 00:03:58.880
+connect to the end point, send
+the application GET request down, and
+
+72
+00:03:58.880 --> 00:04:02.440
+then receive the data and
+then close the socket, okay?
+
+73
+00:04:02.440 --> 00:04:05.810
+And the host that we're connecting to and
+the document is all hard coded in there.
+
+74
+00:04:05.810 --> 00:04:10.420
+Just say python socket1.py.
+
+75
+00:04:10.420 --> 00:04:13.030
+This is an application that's
+going to make a network connection.
+
+76
+00:04:13.030 --> 00:04:15.230
+If you're not connected to the network,
+this is not going to work very well.
+
+77
+00:04:16.270 --> 00:04:20.630
+And there we got, it was exactly
+the same stuff as we got before, right?
+
+78
+00:04:20.630 --> 00:04:24.200
+We got the headers that told us something
+about medadata about the document, and
+
+79
+00:04:24.200 --> 00:04:25.710
+then a blank line.
+
+80
+00:04:25.710 --> 00:04:28.860
+This one's a little different
+our content type on this one.
+
+81
+00:04:28.860 --> 00:04:32.970
+Remember that romeo.txt is just flat
+text because it's a .txt file.
+
+82
+00:04:32.970 --> 00:04:36.500
+So this is plain text. So there's no
+less thans or greater thans or anything.
+
+83
+00:04:36.500 --> 00:04:38.850
+So this is how a text document looks like.
+
+84
+00:04:39.910 --> 00:04:43.241
+So we just wrote a web browser.
+It's not a pretty web browser, but
+
+85
+00:04:43.241 --> 00:04:46.881
+we made a connection, sent a request
+down, and then got the data back and
+
+86
+00:04:46.881 --> 00:04:48.876
+showed it to ourselves on the screen.
+
+87
+00:04:50.243 --> 00:04:51.140
+So, that's pretty easy.
+
+88
+00:04:53.020 --> 00:04:54.100
+So that's all it takes.
+
+89
+00:04:54.100 --> 00:04:55.880
+Like 12 lines of code.
+
+90
+00:04:55.880 --> 00:04:56.470
+11, 12 lines of code.
+
+91
+00:04:56.470 --> 00:04:57.910
+Easy money, right?
+
+92
+00:04:57.910 --> 00:04:59.400
+So there we go.
+
+93
+00:04:59.400 --> 00:05:02.030
+And that's what you get back.
+
+94
+00:05:02.030 --> 00:05:05.680
+And again, this first part is the header
+part, and then there's a blank line.
+
+95
+00:05:05.680 --> 00:05:08.360
+If you go read the spec, that's what
+the spec says you're supposed to do.
+
+96
+00:05:08.360 --> 00:05:09.660
+You get a blank line, and
+
+97
+00:05:09.660 --> 00:05:12.600
+then you know it's the separation
+between the header and the data.
+
+98
+00:05:14.650 --> 00:05:19.260
+Okay, so that seams easy, but if we're
+going to do this a whole bunch of times
+
+99
+00:05:19.260 --> 00:05:21.400
+we don't even want to
+write 12 lines of code.
+
+100
+00:05:21.400 --> 00:05:25.330
+So we can make this even easier
+with another library called urllib.
+
+101
+00:05:25.330 --> 00:05:29.470
+So socket is this low level,
+like make phone call, and
+
+102
+00:05:29.470 --> 00:05:31.235
+then you choose how to talk.
+
+103
+00:05:31.235 --> 00:05:35.240
+Urllib is like an application layer
+library that knows about GET and
+
+104
+00:05:35.240 --> 00:05:36.590
+all these other things.
+
+105
+00:05:36.590 --> 00:05:39.420
+And it knows about headers and
+it knows about the blank lines.
+
+106
+00:05:39.420 --> 00:05:40.770
+Knows about all the rules.
+
+107
+00:05:40.770 --> 00:05:44.110
+So urllib makes it even easier.
+
+108
+00:05:44.110 --> 00:05:50.103
+So to do the same thing,
+urllib makes URLs seem like files, okay?
+
+109
+00:05:50.103 --> 00:05:55.315
+So this is, there's a Transport Layer
+that when we're talking socket, we're talking
+
+110
+00:05:55.315 --> 00:06:00.415
+Transport Layer and when we're talking
+urllib, we're talking Application Layer.
+
+111
+00:06:00.415 --> 00:06:03.927
+It should probably be called "HTTP lib"
+because that's sort of what it's doing
+
+112
+00:06:03.927 --> 00:06:05.192
+but, actually no.
+
+113
+00:06:05.192 --> 00:06:07.952
+It can talk FTP, URLs, and
+other things as well, so
+
+114
+00:06:07.952 --> 00:06:11.942
+I guess we should, it's okay to call it
+urllib given that I didn't name it, and
+
+115
+00:06:11.942 --> 00:06:13.962
+people smarter than me named it,
+we'll keep it that way.
+
+116
+00:06:16.262 --> 00:06:19.261
+Okay, so here is that same line of code.
+
+117
+00:06:19.261 --> 00:06:23.221
+I mean, we're solving that same problem
+now in four lines of code.
+
+118
+00:06:23.221 --> 00:06:24.681
+And one of them's the import the urllib.
+
+119
+00:06:26.191 --> 00:06:29.201
+What we get back, we say urrlib.urlopen.
+
+120
+00:06:29.201 --> 00:06:32.421
+This is the method, this is the library,
+and we give it one parameter.
+
+121
+00:06:32.421 --> 00:06:34.961
+We don't have to worry about port 80,
+it knows about port 80.
+
+122
+00:06:34.961 --> 00:06:36.901
+We don't have to worry about GET,
+it knows about GET.
+
+123
+00:06:36.901 --> 00:06:38.781
+We don't have to worry about anything.
+
+124
+00:06:38.781 --> 00:06:39.441
+Okay?
+
+125
+00:06:39.441 --> 00:06:42.051
+We just say give me this URL,
+and open it, and
+
+126
+00:06:42.051 --> 00:06:45.290
+give me back.
+This is like a file handler.
+
+127
+00:06:45.290 --> 00:06:48.390
+And you can see that we can
+then use this in a for loop
+
+128
+00:06:48.390 --> 00:06:50.220
+just like we would use in a file handler.
+
+129
+00:06:50.220 --> 00:06:53.440
+Now this code should start
+to look kind of familiar.
+
+130
+00:06:53.440 --> 00:06:57.740
+We're going to open a URL and
+loop through line by line through the URL,
+
+131
+00:06:57.740 --> 00:06:59.010
+and then print it out.
+
+132
+00:07:01.230 --> 00:07:02.500
+That's what this does.
+
+133
+00:07:02.500 --> 00:07:07.610
+But from here on, that could be the same
+thing for opening a local disk file.
+
+134
+00:07:07.610 --> 00:07:10.360
+Opening romeo.txt off of your disk.
+
+135
+00:07:13.340 --> 00:07:14.190
+So let me run that one.
+
+136
+00:07:15.450 --> 00:07:17.200
+Another don't call your thing urllib.
+
+137
+00:07:17.200 --> 00:07:20.880
+If you name your file the same
+thing as a Python library,
+
+138
+00:07:20.880 --> 00:07:22.230
+it will not go well.
+
+139
+00:07:22.230 --> 00:07:27.057
+urllib1.py.
+
+140
+00:07:27.057 --> 00:07:28.584
+Boom.
+
+141
+00:07:28.584 --> 00:07:33.020
+Now one thing you'll
+notice is we do not get,
+
+142
+00:07:33.020 --> 00:07:35.590
+in this urllib, we don't get the headers.
+
+143
+00:07:35.590 --> 00:07:38.080
+We only get the text and
+
+144
+00:07:38.080 --> 00:07:42.090
+that's because it assumes that urllib,
+we want it to read the content of the file.
+
+145
+00:07:42.090 --> 00:07:44.750
+Because this is just metadata up here.
+
+146
+00:07:44.750 --> 00:07:47.850
+It's useful. Now it turns out there's
+a way in urllib to say hey give me
+
+147
+00:07:47.850 --> 00:07:51.340
+the headers instead of the body, but
+urllib is, the common thing you pretty
+
+148
+00:07:51.340 --> 00:07:55.140
+much want to do is not see the headers,
+but instead just see the body.
+
+149
+00:07:55.140 --> 00:07:59.230
+So urllib has simplified that,
+and just given us that.
+
+150
+00:07:59.230 --> 00:08:04.222
+But urllib is really beautiful,
+because it turns something super complex,
+
+151
+00:08:04.222 --> 00:08:07.640
+that [LAUGH] of course
+it was super complex
+
+152
+00:08:07.640 --> 00:08:11.040
+it was 12 lines of code super complex,
+but it then reduces it to two lines of code.
+
+153
+00:08:11.040 --> 00:08:13.120
+So it's pretty cool.
+
+154
+00:08:13.120 --> 00:08:15.570
+And so, that's what it does,
+we already saw that.
+
+155
+00:08:16.920 --> 00:08:22.000
+But the whole idea of urllib is
+a just turns URLs into files.
+
+156
+00:08:23.020 --> 00:08:27.490
+And so, we can put these first two
+lines at the top, import and open.
+
+157
+00:08:28.690 --> 00:08:32.550
+And then we write pretty much any
+program we want to do, right?
+
+158
+00:08:32.550 --> 00:08:37.175
+So, this is a program that we've
+done before where we're going to loop
+
+159
+00:08:37.175 --> 00:08:39.904
+through all the lines in the file [SOUND].
+
+160
+00:08:39.904 --> 00:08:43.508
+Then we're going to split the lines into
+words, and then we're going to loop through
+
+161
+00:08:43.508 --> 00:08:47.330
+all the words in the file, and then we're
+going to do a dictionary get pattern, right?
+
+162
+00:08:47.330 --> 00:08:49.410
+And then we're going to print the counts out.
+
+163
+00:08:49.410 --> 00:08:53.860
+The point is, this code is
+identical to a program that we
+
+164
+00:08:53.860 --> 00:08:58.980
+did earlier that read a file and counted
+the frequency of words in the file.
+
+165
+00:08:58.980 --> 00:09:03.370
+Now, we're using this exact same
+code, only changing the top part.
+
+166
+00:09:03.370 --> 00:09:08.470
+Open a URL and then read it,
+versus open a file and then read it.
+
+167
+00:09:08.470 --> 00:09:12.730
+So everything that you've been
+doing with a file in Python,
+
+168
+00:09:12.730 --> 00:09:14.745
+you can just as easily do with the URL.
+
+169
+00:09:14.745 --> 00:09:18.825
+And you're saying, like why did he tell
+us about all that crazy detail?
+
+170
+00:09:18.825 --> 00:09:22.135
+I don't know,
+I want you to know the detail.
+
+171
+00:09:22.135 --> 00:09:23.225
+When it's easy to use,
+
+172
+00:09:23.225 --> 00:09:26.405
+I want you to understand that it's
+amazing that it's this easy to use.
+
+173
+00:09:27.945 --> 00:09:33.190
+Okay, so now we have got to
+the point where we can retrieve and
+
+174
+00:09:33.190 --> 00:09:34.580
+view the contents of a URL.
+
+175
+00:09:34.580 --> 00:09:38.450
+The next thing we're going to do is
+we're going to tear apart and try to
+
+176
+00:09:38.450 --> 00:09:40.430
+make sense of that HTML
+in our Python code.

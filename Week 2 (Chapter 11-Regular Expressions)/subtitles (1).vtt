@@ -1,0 +1,1230 @@
+WEBVTT
+
+1
+00:00:09.262 --> 00:00:12.760
+So now we're going to take a look at sort
+of increasing our sophistication as we
+
+2
+00:00:12.760 --> 00:00:15.730
+write these little regular
+expression programs.
+
+3
+00:00:15.730 --> 00:00:18.980
+So one of the things that we've been doing
+is we've been looking through files,
+
+4
+00:00:18.980 --> 00:00:22.930
+looking for from lines, breaking them
+apart by spaces, and looking for
+
+5
+00:00:22.930 --> 00:00:23.850
+email addresses.
+
+6
+00:00:23.850 --> 00:00:28.450
+And even looking for domain names
+within them, and so let's sort of take
+
+7
+00:00:28.450 --> 00:00:32.100
+a look at some of these things that we've
+done before in previous programs and
+
+8
+00:00:32.100 --> 00:00:36.180
+how we can use regular expressions to
+make our lives a little bit easier.
+
+9
+00:00:36.180 --> 00:00:39.080
+So here is playing with
+some non-blank stuff.
+
+10
+00:00:39.080 --> 00:00:42.120
+So if you recall our goal
+is to sort of we use split,
+
+11
+00:00:42.120 --> 00:00:44.800
+we've used many different ways to extract.
+
+12
+00:00:44.800 --> 00:00:46.990
+This second chunk of stuff using spaces,
+
+13
+00:00:46.990 --> 00:00:49.050
+and then we can pull
+the email address out.
+
+14
+00:00:51.050 --> 00:00:53.120
+And we can write a regular expression.
+
+15
+00:00:53.120 --> 00:00:55.976
+So think to yourself, you think,
+oh you know what, what I'm looking for
+
+16
+00:00:55.976 --> 00:00:58.440
+is things that have @ signs in them,
+that's good.
+
+17
+00:00:58.440 --> 00:01:01.810
+And I want to kinda go outward from
+the @ sign and stop at a blank.
+
+18
+00:01:01.810 --> 00:01:06.020
+And so that is like find that thing and
+then go backwards,
+
+19
+00:01:06.020 --> 00:01:08.570
+split until you find the blanks.
+
+20
+00:01:08.570 --> 00:01:09.822
+Well, we can express that.
+
+21
+00:01:09.822 --> 00:01:15.664
+We can express match an @ sign and before
+the @ sign I want a series of one or
+
+22
+00:01:15.664 --> 00:01:21.617
+more non-blank characters, so
+\S is non-blank, plus is at least one.
+
+23
+00:01:21.617 --> 00:01:23.873
+And then, afterwards I have
+some non-blank characters,
+
+24
+00:01:23.873 --> 00:01:25.660
+at least one non-blank character.
+
+25
+00:01:25.660 --> 00:01:29.490
+And then greedy this is where greedy is
+your friend, keep pushing, push, push,
+
+26
+00:01:29.490 --> 00:01:33.810
+push, push, push, until you find something
+that fails, which is a blank character.
+
+27
+00:01:33.810 --> 00:01:36.850
+So we have a blank here, and a blank here
+or if you're pushing all the way and
+
+28
+00:01:36.850 --> 00:01:39.000
+went to the end of the line
+they would stop as well.
+
+29
+00:01:39.000 --> 00:01:44.250
+But, so it's like, push outwards find
+the @ sign and then push outwards.
+
+30
+00:01:44.250 --> 00:01:48.310
+And then we say, hey, find all the things
+that match this particular regular
+
+31
+00:01:48.310 --> 00:01:53.670
+expression in this particular string and
+low and behold we get a list.
+
+32
+00:01:53.670 --> 00:01:58.760
+Remember that findall always gives us back
+a list that gives us exactly what we want.
+
+33
+00:01:58.760 --> 00:02:02.930
+So we can in a single line use
+the regular expression library
+
+34
+00:02:02.930 --> 00:02:04.150
+to find what we're looking for.
+
+35
+00:02:04.150 --> 00:02:08.690
+[COUGH]
+We can fine tune this a little more
+
+36
+00:02:08.690 --> 00:02:12.660
+because maybe there's lines that have @
+signs on them that we don't really wanna
+
+37
+00:02:12.660 --> 00:02:14.690
+even parse, don't even wanna look at.
+
+38
+00:02:14.690 --> 00:02:15.570
+So we can
+
+39
+00:02:17.350 --> 00:02:21.640
+fine tune this by saying I'm only
+interested in lines that start with from.
+
+40
+00:02:21.640 --> 00:02:23.380
+And we write in Python
+we could put a loop,
+
+41
+00:02:23.380 --> 00:02:27.110
+we could an if statement into a continue,
+we've done a lot of this, right?
+
+42
+00:02:27.110 --> 00:02:30.790
+But here's a way with regular
+expressions to do it all in one little
+
+43
+00:02:30.790 --> 00:02:31.850
+extending of the program.
+
+44
+00:02:33.350 --> 00:02:35.800
+And I keep calling these little
+things here the program.
+
+45
+00:02:35.800 --> 00:02:37.750
+That's the one we just built
+that says go through and
+
+46
+00:02:37.750 --> 00:02:41.480
+find me lines that have @ sign with
+blanks before [INAUDIBLE], okay.
+
+47
+00:02:41.480 --> 00:02:44.440
+But we can use a new thing,
+and that is parentheses.
+
+48
+00:02:44.440 --> 00:02:47.950
+So the parentheses here,
+if you look at your quick guide,
+
+49
+00:02:47.950 --> 00:02:52.720
+the parentheses are indicate to the
+regular expression library, the start and
+
+50
+00:02:52.720 --> 00:02:55.730
+the end of what to extract, okay?
+
+51
+00:02:55.730 --> 00:02:58.050
+So this is a whole regular expression.
+
+52
+00:02:59.840 --> 00:03:01.810
+And the parentheses
+aren't part of the lines.
+
+53
+00:03:01.810 --> 00:03:04.950
+The parentheses are up in here,
+they're not in the line we're looking for.
+
+54
+00:03:04.950 --> 00:03:07.240
+But they're part of the regular
+expression program to say,
+
+55
+00:03:07.240 --> 00:03:11.560
+I'm gonna give you a bigger match, but the
+only part that I want you to give me back
+
+56
+00:03:11.560 --> 00:03:14.840
+in the return value is the stuff
+in between the parentheses, so
+
+57
+00:03:14.840 --> 00:03:17.690
+it's like start here,
+start there, but match.
+
+58
+00:03:17.690 --> 00:03:19.870
+So when we use the parentheses, and
+
+59
+00:03:19.870 --> 00:03:23.340
+they're kinda implied here,
+we want whatever matches.
+
+60
+00:03:23.340 --> 00:03:25.409
+So the parentheses unless
+you don't put them in,
+
+61
+00:03:25.409 --> 00:03:28.540
+it gives you pretty much
+the entire thing that's matched.
+
+62
+00:03:28.540 --> 00:03:30.330
+And greedy expansion and all of that.
+
+63
+00:03:30.330 --> 00:03:31.980
+But our whole regular
+expressions I'll says,
+
+64
+00:03:31.980 --> 00:03:33.910
+you know what,
+this is what I'm looking for.
+
+65
+00:03:33.910 --> 00:03:35.240
+I wanna find a line.
+
+66
+00:03:35.240 --> 00:03:39.500
+That has as its first five
+characters from followed by a blank,
+
+67
+00:03:39.500 --> 00:03:41.090
+this is a little blank here.
+
+68
+00:03:41.090 --> 00:03:45.300
+Followed by, and
+then parentheses says start the match.
+
+69
+00:03:45.300 --> 00:03:47.150
+Start and stop the match.
+
+70
+00:03:47.150 --> 00:03:51.259
+Look for, non-blank character,
+at least one followed by an @ sign,
+
+71
+00:03:51.259 --> 00:03:55.380
+followed by one or more non-blank
+characters and then stop matching.
+
+72
+00:03:56.540 --> 00:04:00.620
+And so, here is what we pass
+in as the regular expression.
+
+73
+00:04:00.620 --> 00:04:05.850
+And so that matches the beginning of the
+line from, and it matches the space and
+
+74
+00:04:05.850 --> 00:04:09.700
+then it finds non-blank characters and
+it keeps on trucking along with non-blank
+
+75
+00:04:09.700 --> 00:04:14.000
+characters, finds an @ sign, then it says
+I need some more non-blank characters, and
+
+76
+00:04:14.000 --> 00:04:16.450
+it stops here because
+it finds a blank here.
+
+77
+00:04:16.450 --> 00:04:21.350
+And then it pulls apart in a sense
+the parentheses wrap that bit.
+
+78
+00:04:21.350 --> 00:04:24.980
+So even though this from and
+the space were part of the matching,
+
+79
+00:04:24.980 --> 00:04:30.330
+which means the lines that don't start
+with from will not give us anything, but
+
+80
+00:04:30.330 --> 00:04:31.980
+we still pull out the thing that we want.
+
+81
+00:04:31.980 --> 00:04:35.730
+So parenthesis is a way to make
+a longer regular expression and
+
+82
+00:04:35.730 --> 00:04:37.250
+only extract a part of that.
+
+83
+00:04:37.250 --> 00:04:37.800
+Right?
+
+84
+00:04:37.800 --> 00:04:41.680
+So parentheses a way to make a really
+long regular expression but say great,
+
+85
+00:04:41.680 --> 00:04:42.500
+match all of it.
+
+86
+00:04:42.500 --> 00:04:47.400
+But only return to me the part that
+goes in between the parentheses.
+
+87
+00:04:47.400 --> 00:04:50.840
+And again, part of what you're doing
+is you're looking through data.
+
+88
+00:04:50.840 --> 00:04:52.990
+You're throwing away data or
+lines that you don't want.
+
+89
+00:04:52.990 --> 00:04:54.720
+And then parsing the lines
+that you do want.
+
+90
+00:04:54.720 --> 00:04:57.450
+And this is a way of throwing away
+the lines that you don't want.
+
+91
+00:04:57.450 --> 00:04:59.580
+And this is a way of parsing
+the lines that you do want.
+
+92
+00:05:00.900 --> 00:05:05.380
+So, if you recall, another thing that
+we did was we didn't just look for
+
+93
+00:05:05.380 --> 00:05:06.330
+the email address.
+
+94
+00:05:06.330 --> 00:05:09.570
+We looked for the domain name,
+which is the part after the @ sign.
+
+95
+00:05:11.160 --> 00:05:17.360
+And so the hard way, the sort of low level
+chopping way that we do it in Python,
+
+96
+00:05:17.360 --> 00:05:20.180
+is if you recall, we said do a find.
+
+97
+00:05:20.180 --> 00:05:22.870
+That means look from the beginning,
+find me the position and
+
+98
+00:05:22.870 --> 00:05:25.010
+that @ sign is in position 21.
+
+99
+00:05:25.010 --> 00:05:29.117
+So find the @ sign look through here,
+find the @ sign.
+
+100
+00:05:29.117 --> 00:05:30.419
+It's 21.
+
+101
+00:05:30.419 --> 00:05:33.253
+Oh, okay, then what we're gonna
+do is we're gonna look for
+
+102
+00:05:33.253 --> 00:05:34.818
+the next space after the @ sign.
+
+103
+00:05:34.818 --> 00:05:36.550
+So we do this.
+
+104
+00:05:36.550 --> 00:05:39.480
+Starting from the at position
+look where the spaces at.
+
+105
+00:05:39.480 --> 00:05:41.980
+Well, and that turns out to be 31.
+
+106
+00:05:41.980 --> 00:05:48.170
+So now we have 31 and 21, and
+then what we do once we have 31 and 21,
+
+107
+00:05:48.170 --> 00:05:53.960
+we basically say start at
+22 which is 21 plus 1.
+
+108
+00:05:53.960 --> 00:05:58.320
+Up to but not including, that's what
+this slicing is, if you recall.
+
+109
+00:05:58.320 --> 00:06:03.300
+Start at position plus one, one character
+beyond the @ sign, go up to but
+
+110
+00:06:03.300 --> 00:06:04.910
+don't include the space.
+
+111
+00:06:04.910 --> 00:06:07.710
+So that then carefully
+extracts the little piece.
+
+112
+00:06:07.710 --> 00:06:10.890
+For some of you, you're like that makes
+a lot more sense than regular expressions
+
+113
+00:06:10.890 --> 00:06:13.423
+and other of you are like whoa,
+I don't want ever use this again,
+
+114
+00:06:13.423 --> 00:06:15.382
+I wanna use regular expressions for
+everything.
+
+115
+00:06:15.382 --> 00:06:15.951
+It's okay.
+
+116
+00:06:15.951 --> 00:06:19.520
+Cuz different people sort of like
+different kinds of things in programming.
+
+117
+00:06:19.520 --> 00:06:21.010
+They're doing the same thing.
+
+118
+00:06:21.010 --> 00:06:21.960
+It's just harder.
+
+119
+00:06:21.960 --> 00:06:27.100
+So, this is sort of like the low
+level rugged way to do things.
+
+120
+00:06:27.100 --> 00:06:30.105
+And we can do the same thing
+with regular expressions.
+
+121
+00:06:30.105 --> 00:06:33.120
+Sort of like, we have to be a little more
+clever and we have to know our little
+
+122
+00:06:33.120 --> 00:06:37.905
+programming language, but then once we
+do we can do this a lot more succinctly.
+
+123
+00:06:37.905 --> 00:06:41.189
+The other way we did this was with
+the double split pattern, if you recall.
+
+124
+00:06:41.189 --> 00:06:44.617
+So if you recall the first thing we
+did with the split was we split based
+
+125
+00:06:44.617 --> 00:06:45.216
+on spaces.
+
+126
+00:06:48.352 --> 00:06:53.010
+We split based on spaces and that's what
+this line is, split based on spaces.
+
+127
+00:06:53.010 --> 00:06:59.970
+And then what we did was we found the word
+sub one, which is this guy right here.
+
+128
+00:06:59.970 --> 00:07:03.490
+That's word sub one which is
+the email address which is this.
+
+129
+00:07:03.490 --> 00:07:07.980
+And then we did another split base on @
+signs so the net chopped it right here.
+
+130
+00:07:07.980 --> 00:07:12.630
+And then pieces sub one, cuz the net
+becomes zero and that becomes one.
+
+131
+00:07:12.630 --> 00:07:18.230
+Pieces sub one,
+was the thing after the @ sign, right?
+
+132
+00:07:18.230 --> 00:07:22.205
+So here we have the pieces
+after this is the @ split.
+
+133
+00:07:22.205 --> 00:07:26.365
+Stephen Marquard and uct.ac.za,
+and then we grab the second one.
+
+134
+00:07:26.365 --> 00:07:29.875
+So this is the double split pattern
+where we split it on a blank, then grab
+
+135
+00:07:29.875 --> 00:07:32.665
+the piece out and then split that on @
+sign and then grab the second piece out.
+
+136
+00:07:32.665 --> 00:07:34.185
+So that's another way to do it.
+
+137
+00:07:34.185 --> 00:07:37.925
+So this is down to four lines
+to pull that information out.
+
+138
+00:07:39.310 --> 00:07:43.900
+Now if we're even more sophisticated,
+what we can do is, we can say let's
+
+139
+00:07:43.900 --> 00:07:48.040
+look through the string until you find an,
+and do this with a regular expression.
+
+140
+00:07:48.040 --> 00:07:52.700
+So our regular expression is look through
+the string until you find an @ sign.
+
+141
+00:07:52.700 --> 00:07:53.290
+Boop.
+
+142
+00:07:53.290 --> 00:07:58.190
+Found the @ sign and then
+the parenthesis says, start extracting.
+
+143
+00:07:59.990 --> 00:08:02.590
+And then what we have is one of
+these little bracket operators, so
+
+144
+00:08:02.590 --> 00:08:05.840
+the bracket operator says
+a single character, and
+
+145
+00:08:05.840 --> 00:08:09.950
+if the first character of the bracket
+operator is a caret that means not.
+
+146
+00:08:09.950 --> 00:08:12.470
+It doesn't mean the beginning
+of the line in this case.
+
+147
+00:08:12.470 --> 00:08:13.740
+It's a programming language.
+
+148
+00:08:13.740 --> 00:08:16.430
+Inside of the brackets, this means not.
+
+149
+00:08:17.500 --> 00:08:20.090
+Anything but, and then this is a blank.
+
+150
+00:08:20.090 --> 00:08:25.783
+That's a little blank character, so
+that says a single non-blank character.
+
+151
+00:08:25.783 --> 00:08:31.509
+And then, this asterisk
+
+152
+00:08:31.509 --> 00:08:36.000
+applies to this character
+because this is expressing
+
+153
+00:08:36.000 --> 00:08:40.620
+one character from a set, the set of
+all characters that are not blank.
+
+154
+00:08:40.620 --> 00:08:44.540
+As many times as you want, and
+then finish the extraction.
+
+155
+00:08:44.540 --> 00:08:45.230
+And that's what it's doing.
+
+156
+00:08:45.230 --> 00:08:50.680
+It's saying hunt for @, start extraction,
+
+157
+00:08:50.680 --> 00:08:53.340
+keep going until you find a blank,
+oh we found a blank.
+
+158
+00:08:53.340 --> 00:08:56.650
+So we're stopped it, and
+then we end the extraction.
+
+159
+00:08:56.650 --> 00:09:00.420
+And so
+that's how that pulls out that @ sign.
+
+160
+00:09:01.440 --> 00:09:06.370
+Okay, so now we've reduced this
+down to basically one statement.
+
+161
+00:09:06.370 --> 00:09:09.890
+And we're just carefully expressing
+in our little programming language,
+
+162
+00:09:09.890 --> 00:09:12.460
+using all of our cool special characters,
+how to do that.
+
+163
+00:09:14.160 --> 00:09:17.970
+Now just like before,
+we can say you know what?
+
+164
+00:09:19.150 --> 00:09:22.700
+We're going to look for the string
+From at the beginning of the line,
+
+165
+00:09:22.700 --> 00:09:29.910
+beginning of the line followed by a space,
+followed by any number of characters, .*.
+
+166
+00:09:29.910 --> 00:09:35.310
+So From at the beginning of the line,
+I insist on a space, then on any number of
+
+167
+00:09:35.310 --> 00:09:41.590
+characters, .* it's any number of
+characters until I find an @ sign.
+
+168
+00:09:43.600 --> 00:09:45.040
+Okay, that's good.
+
+169
+00:09:45.040 --> 00:09:49.490
+Then find an @ sign.
+
+170
+00:09:49.490 --> 00:09:51.300
+Then we start extracting.
+
+171
+00:09:52.590 --> 00:09:56.040
+Start extracting, and we keep going for
+
+172
+00:09:56.040 --> 00:09:59.510
+extracting as long as they're non-blank,
+that's cool.
+
+173
+00:09:59.510 --> 00:10:02.110
+And then we hit a blank, and
+then we stop extracting.
+
+174
+00:10:02.110 --> 00:10:06.220
+This is many non-blank characters,
+is what that says.
+
+175
+00:10:06.220 --> 00:10:10.030
+And then, match many of them.
+
+176
+00:10:10.030 --> 00:10:14.810
+And so that's a pretty sophisticated
+like hunt, find another thing,
+
+177
+00:10:14.810 --> 00:10:19.540
+skip these other things, start extracting,
+extract this long, stop extracting.
+
+178
+00:10:19.540 --> 00:10:23.460
+And then when we're all said and
+done, in a single line, and
+
+179
+00:10:23.460 --> 00:10:26.540
+again that sort of is the theme
+of these regular expressions.
+
+180
+00:10:26.540 --> 00:10:31.410
+And that's they're like puzzles to
+figure out how you can express not
+
+181
+00:10:31.410 --> 00:10:35.600
+only what you're interested in matching,
+but what you're interested in extracting.
+
+182
+00:10:35.600 --> 00:10:39.050
+And regular expression library
+does a lot of that for you.
+
+183
+00:10:40.610 --> 00:10:46.140
+And like I said, [COUGH]
+you don't have to use this, right?
+
+184
+00:10:46.140 --> 00:10:47.510
+If you don't want to.
+
+185
+00:10:47.510 --> 00:10:52.345
+So, here's a good example of
+a bit of code that we did before
+
+186
+00:10:52.345 --> 00:10:56.799
+where we're extracting
+the spam confidence lines and
+
+187
+00:10:56.799 --> 00:11:00.301
+if you recall we would open a file, right?
+
+188
+00:11:00.301 --> 00:11:05.096
+And we're going to come up with a list
+of the numbers that we're gonna read.
+
+189
+00:11:05.096 --> 00:11:07.976
+We're gonna look through the whole file,
+we're gonna strip the other stuff.
+
+190
+00:11:07.976 --> 00:11:11.458
+Now, here's the interesting thing.
+
+191
+00:11:11.458 --> 00:11:15.134
+At this point in our previous
+implementations of this code, we would do,
+
+192
+00:11:15.134 --> 00:11:16.693
+does it start with this thing?
+
+193
+00:11:16.693 --> 00:11:18.930
+Split it.
+
+194
+00:11:18.930 --> 00:11:22.360
+Some of you did look for
+the colon and did a just whatever.
+
+195
+00:11:22.360 --> 00:11:25.320
+There's some use fined, and then slicing.
+
+196
+00:11:25.320 --> 00:11:27.030
+Some of you split.
+
+197
+00:11:27.030 --> 00:11:32.390
+But what we can do is collapse all that
+into one simple regular expression
+
+198
+00:11:32.390 --> 00:11:39.740
+that says, I am looking for lines that
+start with X-DSPAM-Confidence: space.
+
+199
+00:11:39.740 --> 00:11:42.350
+There's nothing programmy there.
+
+200
+00:11:42.350 --> 00:11:46.130
+The caret is programming but
+the lines must start with this.
+
+201
+00:11:46.130 --> 00:11:50.190
+This is really good at ignoring
+the data we want to ignore.
+
+202
+00:11:50.190 --> 00:11:53.790
+So like if it doesn't have that
+as the first whatever 16, 18,
+
+203
+00:11:53.790 --> 00:11:57.150
+20 characters we're skipping the line.
+
+204
+00:11:57.150 --> 00:12:01.950
+Okay, and then after that you
+say start extracting, and
+
+205
+00:12:01.950 --> 00:12:07.590
+then you look for
+a character that is a digit or a period.
+
+206
+00:12:07.590 --> 00:12:09.110
+That's what this is saying.
+
+207
+00:12:09.110 --> 00:12:14.820
+One character, in the range 0 through 9,
+or period, inside of the brackets.
+
+208
+00:12:14.820 --> 00:12:16.230
+This is not a wildcard.
+
+209
+00:12:17.530 --> 00:12:18.900
+It's not wild.
+
+210
+00:12:18.900 --> 00:12:20.990
+Deuces are not wild inside of brackets.
+
+211
+00:12:20.990 --> 00:12:23.020
+Dots are not wild inside of brackets.
+
+212
+00:12:23.020 --> 00:12:28.920
+So this says, so this is because these
+numbers are gonna be 0.9762 something.
+
+213
+00:12:28.920 --> 00:12:32.360
+You want digits or dots and
+that's what we're saying, digits or dots.
+
+214
+00:12:32.360 --> 00:12:37.330
+And we're saying give me one or
+more, least greater or equal to one.
+
+215
+00:12:37.330 --> 00:12:39.060
+And stop when you run out of digits.
+
+216
+00:12:39.060 --> 00:12:42.020
+So it starts here, goes many digits,
+and then stops there.
+
+217
+00:12:43.400 --> 00:12:47.500
+Now, remember that find
+all gives you back a list.
+
+218
+00:12:47.500 --> 00:12:50.310
+And so the way I tell whether
+I actually found something
+
+219
+00:12:50.310 --> 00:12:51.980
+on this line that did any matching.
+
+220
+00:12:54.280 --> 00:13:00.100
+The way I do is I ask, is the list
+that I got back, is there one or more?
+
+221
+00:13:00.100 --> 00:13:04.160
+Actually, in this case I'm saying I only
+want ones where there's exactly one match.
+
+222
+00:13:04.160 --> 00:13:07.950
+So, it goes in and pulls the thing
+out I want, and I get one match.
+
+223
+00:13:07.950 --> 00:13:12.260
+That's the length of that thing that
+returns set of matches is not one.
+
+224
+00:13:12.260 --> 00:13:15.750
+I continue, which means I'm skipping all
+the lines that don't start with it and
+
+225
+00:13:15.750 --> 00:13:17.260
+have a number.
+
+226
+00:13:17.260 --> 00:13:22.100
+And if not, I just pull the zeroth one
+out, which actually pulls that number out.
+
+227
+00:13:22.100 --> 00:13:25.100
+And then I append it, and then I do
+my max, and I do my other things.
+
+228
+00:13:25.100 --> 00:13:30.704
+And so this here is a way of, well,
+when I combine these two lines together,
+
+229
+00:13:30.704 --> 00:13:36.243
+these two lines are both selecting and
+extracting, all in one statement.
+
+230
+00:13:39.703 --> 00:13:41.140
+So like I said at the beginning.
+
+231
+00:13:41.140 --> 00:13:43.640
+This is a little programming language.
+
+232
+00:13:43.640 --> 00:13:48.530
+And it seems like it someone just typing
+on the keyboard and hitting random keys.
+
+233
+00:13:48.530 --> 00:13:50.050
+And it certainly does look like that.
+
+234
+00:13:51.690 --> 00:13:55.600
+But once you get good at it,
+it's very fun, nice puzzle.
+
+235
+00:13:55.600 --> 00:13:57.198
+When you're writing programs for
+
+236
+00:13:57.198 --> 00:14:00.567
+other people to read don't get too
+excited about regular expressions.
+
+237
+00:14:00.567 --> 00:14:03.448
+It's often fun to go to stack overflow and
+say,
+
+238
+00:14:03.448 --> 00:14:07.856
+how can I do a regular expression to
+extract email address or something.
+
+239
+00:14:07.856 --> 00:14:12.232
+You'll find people craft the regular
+expression and share regular expressions.
+
+240
+00:14:12.232 --> 00:14:17.991
+Like I said, they're their own
+little kind of programming language.
+
+241
+00:14:17.991 --> 00:14:22.738
+Sometimes you want one of these
+characters, like a dollar sign,
+
+242
+00:14:22.738 --> 00:14:23.958
+to not be a code.
+
+243
+00:14:23.958 --> 00:14:30.331
+And in that case, you simply you
+prepend it with a backslash.
+
+244
+00:14:30.331 --> 00:14:35.369
+So backslash dollar means real dollar
+sign, as compared to the end of the line.
+
+245
+00:14:35.369 --> 00:14:40.396
+And that way you can match things like,
+$10 for cookies.
+
+246
+00:14:40.396 --> 00:14:44.192
+So, I hope you found this interesting.
+
+247
+00:14:44.192 --> 00:14:47.036
+We're only gonna use this in this chapter.
+
+248
+00:14:47.036 --> 00:14:51.748
+I wanna expose it to you because a lot of
+what we're trying to do in this class is
+
+249
+00:14:51.748 --> 00:14:55.301
+read data, and
+once you get good at regular expressions,
+
+250
+00:14:55.301 --> 00:14:59.290
+you can write more succinct and
+more reliable programs to scan and
+
+251
+00:14:59.290 --> 00:15:01.931
+extract data using regular expressions.
+
+252
+00:15:01.931 --> 00:15:06.272
+Don't feel like you have to use them,
+but some people love them.
+
+253
+00:15:06.272 --> 00:15:08.931
+But they're a useful tool no matter what.
+
+254
+00:15:08.931 --> 00:15:12.541
+And I just wanted to expose them to you,
+and I give you an assignment so
+
+255
+00:15:12.541 --> 00:15:13.794
+you could play with it.
+
+256
+00:15:13.794 --> 00:15:17.403
+But we're not gonna use it,
+we're not gonna obsessively use it for
+
+257
+00:15:17.403 --> 00:15:19.948
+the rest of the class but
+you could if you liked.
+
+258
+00:15:19.948 --> 00:15:23.848
+Some people will just use regular
+expressions from now on as they read data.
+
+259
+00:15:23.848 --> 00:15:28.712
+And other people say, I never wanna do
+this again and both of you are right.
+
+260
+00:15:28.712 --> 00:15:30.744
+So that's it.
+
+261
+00:15:30.744 --> 00:15:32.360
+See you in the next lecture.

@@ -1,0 +1,368 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.348
+[MUSIC]
+
+2
+00:00:02.348 --> 00:00:05.704
+The service-oriented approach
+to linking software systems and
+
+3
+00:00:05.704 --> 00:00:10.440
+applications is transforming the way
+many organizations share data.
+
+4
+00:00:10.440 --> 00:00:13.730
+This approach improves existing
+methods of data sharing,
+
+5
+00:00:13.730 --> 00:00:16.029
+by providing a service
+layer between systems.
+
+6
+00:00:17.530 --> 00:00:21.100
+Sharing data between applications
+is a well-established principle
+
+7
+00:00:21.100 --> 00:00:22.630
+that works on a simple level.
+
+8
+00:00:24.520 --> 00:00:28.980
+As systems expand, the solution that
+connects two software applications
+
+9
+00:00:28.980 --> 00:00:30.850
+will often not work for a third.
+
+10
+00:00:31.900 --> 00:00:36.170
+What began as a workable system,
+then locks valuable data in a silo.
+
+11
+00:00:37.510 --> 00:00:42.460
+Sharing the data is still possible,
+but requires adaptations and tweaks.
+
+12
+00:00:43.460 --> 00:00:45.270
+The process is laborious and
+
+13
+00:00:45.270 --> 00:00:49.400
+time consuming,
+leading to bottlenecks and overload.
+
+14
+00:00:49.400 --> 00:00:55.214
+The reality of this world is unnecessary
+effort expended in duplication of data.
+
+15
+00:00:55.214 --> 00:00:57.431
+[MUSIC]
+
+16
+00:00:57.431 --> 00:01:01.243
+By applying a service layer to
+the applications you wish to connect up,
+
+17
+00:01:01.243 --> 00:01:04.500
+data is offered up in a common format for
+reuse elsewhere.
+
+18
+00:01:04.500 --> 00:01:09.520
+The service-oriented approach works
+with existing software systems and
+
+19
+00:01:09.520 --> 00:01:13.130
+does not require you to remove
+the monolithic application.
+
+20
+00:01:13.130 --> 00:01:16.620
+Replacement applications reuse
+the links already made and
+
+21
+00:01:16.620 --> 00:01:20.270
+can plug into the service layer
+without affecting other users of the data.
+
+22
+00:01:21.400 --> 00:01:25.200
+New applications can be added to
+grow overall system architectures in
+
+23
+00:01:25.200 --> 00:01:25.910
+the same way.
+
+24
+00:01:25.910 --> 00:01:28.520
+The data in each application,
+
+25
+00:01:28.520 --> 00:01:32.360
+is offered up as a service which
+any other application can consume.
+
+26
+00:01:33.470 --> 00:01:38.412
+When the service-oriented approach is
+evolved into a system-wide architecture,
+
+27
+00:01:38.412 --> 00:01:39.966
+it allows connections and
+
+28
+00:01:39.966 --> 00:01:44.922
+service sharing opportunities between
+organizations nationally and globally.
+
+29
+00:01:44.922 --> 00:01:49.381
+[MUSIC]
+
+30
+00:01:49.381 --> 00:01:52.830
+Take monitoring of student progress for
+example.
+
+31
+00:01:52.830 --> 00:01:57.660
+Results are logged by a virtual learning
+environment, but how much of that data is
+
+32
+00:01:57.660 --> 00:02:01.529
+shared with a management system that is
+tracking progression against funding?
+
+33
+00:02:03.100 --> 00:02:07.000
+If the motivation and commitment of
+struggling students is not addressed and
+
+34
+00:02:07.000 --> 00:02:10.820
+they decide to walk away,
+there is a direct impact on funding.
+
+35
+00:02:12.060 --> 00:02:13.518
+If the data is freed up and
+
+36
+00:02:13.518 --> 00:02:16.991
+shared across a system using
+a service-oriented approach,
+
+37
+00:02:16.991 --> 00:02:22.210
+it could contribute to retaining student
+motivation, and thereby maximizing income.
+
+38
+00:02:22.210 --> 00:02:27.193
+[MUSIC]
+
+39
+00:02:27.193 --> 00:02:31.133
+And what if across the education
+community, there was one standard and
+
+40
+00:02:31.133 --> 00:02:33.580
+agreed way to describe a course?
+
+41
+00:02:33.580 --> 00:02:37.530
+It would allow course information to be
+made available as a consumable service,
+
+42
+00:02:37.530 --> 00:02:39.550
+both internally and externally.
+
+43
+00:02:40.630 --> 00:02:44.560
+This is the subject of a current project
+called Exchanging Course Related
+
+44
+00:02:44.560 --> 00:02:49.700
+Information or XCRI,
+encompassing course marketing,
+
+45
+00:02:49.700 --> 00:02:53.140
+quality assurance, enrollment, and
+reporting requirements.
+
+46
+00:02:54.230 --> 00:02:57.940
+This service-oriented approach
+enables aggregated organizations,
+
+47
+00:02:57.940 --> 00:03:00.460
+like UCAS, to gather the standard and
+
+48
+00:03:00.460 --> 00:03:03.050
+agreed descriptions of
+courses from each provider.
+
+49
+00:03:04.110 --> 00:03:07.806
+Comprehensive details of approved
+enrollment opportunities,
+
+50
+00:03:07.806 --> 00:03:12.251
+are then returned to a prospective
+student for easy and accurate comparison.
+
+51
+00:03:12.251 --> 00:03:14.848
+[MUSIC]
+
+52
+00:03:14.848 --> 00:03:18.340
+Amongst the research community,
+it is the same principle.
+
+53
+00:03:18.340 --> 00:03:21.600
+Here, the service-oriented approach
+is enabling researchers to
+
+54
+00:03:21.600 --> 00:03:25.990
+work across institutions
+in virtual organizations.
+
+55
+00:03:25.990 --> 00:03:30.650
+MyGrid is a project that provides a shared
+toolkit for creating experiments by
+
+56
+00:03:30.650 --> 00:03:36.440
+coordinating the information flow between
+distributed resources and services.
+
+57
+00:03:36.440 --> 00:03:40.450
+Workflows and query specifications
+link together remote and
+
+58
+00:03:40.450 --> 00:03:44.180
+local resources using
+web service protocols.
+
+59
+00:03:44.180 --> 00:03:47.590
+Workflows created by myGrid
+represent the scientific
+
+60
+00:03:47.590 --> 00:03:52.060
+process of the experiments they enact,
+making them a rich resource for
+
+61
+00:03:52.060 --> 00:03:56.060
+scientists creating their
+own new experiments.
+
+62
+00:03:56.060 --> 00:04:00.372
+The service layer to this data
+enables users to share, re-use, and
+
+63
+00:04:00.372 --> 00:04:04.082
+re-purpose experiments
+within the myGrid community.
+
+64
+00:04:04.082 --> 00:04:13.611
+[MUSIC]
+
+65
+00:04:13.611 --> 00:04:17.926
+Many education and research services
+are already developing a service-oriented
+
+66
+00:04:17.926 --> 00:04:20.845
+approach taking their lead
+from the business world and
+
+67
+00:04:20.845 --> 00:04:22.440
+major software developers.
+
+68
+00:04:24.250 --> 00:04:27.830
+It is in this context that
+the e-Framework, a successful and
+
+69
+00:04:27.830 --> 00:04:32.060
+expanding international initiative,
+works to make sense of the
+
+70
+00:04:32.060 --> 00:04:35.460
+service-oriented approach for
+the education and research community.
+
+71
+00:04:36.760 --> 00:04:42.190
+The e-Framework website identifies and
+describes the service components needed.
+
+72
+00:04:42.190 --> 00:04:44.900
+It provides the blueprints and
+reference example for
+
+73
+00:04:44.900 --> 00:04:48.350
+those in the community who want to
+gain a greater understanding and
+
+74
+00:04:48.350 --> 00:04:51.780
+knowledge of how to implement
+a service-oriented approach.
+
+75
+00:04:52.850 --> 00:04:57.650
+The e-Framework website is thus becoming
+a knowledge base that is developing
+
+76
+00:04:57.650 --> 00:05:02.243
+a shared vocabulary and way of thinking
+for all in education and research.
+
+77
+00:05:02.243 --> 00:05:12.243
+[MUSIC]

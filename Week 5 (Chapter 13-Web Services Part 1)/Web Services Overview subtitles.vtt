@@ -1,0 +1,332 @@
+WEBVTT
+
+1
+00:00:08.837 --> 00:00:11.296
+Hello and welcome to Chapter 13.
+
+2
+00:00:11.296 --> 00:00:15.687
+What we did in the last chapter, of
+course, is we learned how to make request
+
+3
+00:00:15.687 --> 00:00:20.504
+response calls across the Internet, but
+instead of from a browser, from Python.
+
+4
+00:00:20.504 --> 00:00:24.005
+And now we are going to become
+much more powerful with that.
+
+5
+00:00:24.005 --> 00:00:25.837
+We are going to really push this.
+
+6
+00:00:25.837 --> 00:00:30.602
+And we are going to talk instead of
+reading HTML, which is not really intended
+
+7
+00:00:30.602 --> 00:00:35.148
+for consumption by an application like
+yours that is interested in data.
+
+8
+00:00:35.148 --> 00:00:39.910
+Sometimes HTML is all we've got.
+Now we're going to talk to web services.
+
+9
+00:00:39.910 --> 00:00:44.870
+And these are URLs that are designed
+explicitly to hand you data back for
+
+10
+00:00:44.870 --> 00:00:46.440
+your application.
+
+11
+00:00:46.440 --> 00:00:51.960
+So the data, it was a natural thing once
+we had browsers that were talking HTML,
+
+12
+00:00:51.960 --> 00:00:55.460
+to come up with a way to
+structure the data to say look,
+
+13
+00:00:55.460 --> 00:00:57.110
+we're going to make the data look clean.
+
+14
+00:00:57.110 --> 00:01:00.087
+We're expecting this data to be
+consumed by your application.
+
+15
+00:01:00.087 --> 00:01:03.743
+And so we're going to come up with some
+formats to represent that data going back
+
+16
+00:01:03.743 --> 00:01:06.171
+and forth between
+applications across networks.
+
+17
+00:01:06.171 --> 00:01:09.004
+And there are two technologies
+that we'll talk about.
+
+18
+00:01:09.004 --> 00:01:12.270
+One will be called the extensible
+mark-up language, which is XML.
+
+19
+00:01:12.270 --> 00:01:15.419
+And the other one's called JSON,
+which is the JavaScript Object Notation.
+
+20
+00:01:16.440 --> 00:01:20.940
+So the problem is, when we're
+sending data between applications,
+
+21
+00:01:20.940 --> 00:01:23.150
+we have things like lists
+and dictionaries in Python,
+
+22
+00:01:23.150 --> 00:01:25.990
+and if you were to go into the Java
+programming language you wouldn't
+
+23
+00:01:25.990 --> 00:01:29.680
+find lists and dictionaries,
+you would find what we call a HashMap.
+
+24
+00:01:29.680 --> 00:01:33.320
+And so you can't really send
+a Python dictionary across,
+
+25
+00:01:33.320 --> 00:01:38.910
+you have to send something that
+both Python and Java agree on.
+
+26
+00:01:38.910 --> 00:01:40.820
+And then they convert.
+
+27
+00:01:40.820 --> 00:01:43.230
+And so we call this the Wire Protocol.
+
+28
+00:01:43.230 --> 00:01:47.690
+We call it the Wire Protocol because
+if you were to sort of split this, and
+
+29
+00:01:47.690 --> 00:01:49.640
+you were to look at
+the stuff going back and
+
+30
+00:01:49.640 --> 00:01:53.490
+forth, and you would say what is
+going on the wire?
+
+31
+00:01:53.490 --> 00:01:55.560
+We think of the internet
+as a series of wires.
+
+32
+00:01:55.560 --> 00:01:58.800
+So if you were to grab one wire and
+you were to look at it, tap into it, and
+
+33
+00:01:58.800 --> 00:02:04.200
+you say, what is this Python program
+sending to that Java program on the wire?
+
+34
+00:02:04.200 --> 00:02:05.630
+So, we call it Wire Protocol.
+
+35
+00:02:05.630 --> 00:02:07.360
+Even though, hey,
+it may be fiber optic these days.
+
+36
+00:02:07.360 --> 00:02:10.130
+So we don't even know if they're wires,
+but we call it the Wire Protocol.
+
+37
+00:02:11.690 --> 00:02:13.800
+And so, we have to agree on a wire format.
+
+38
+00:02:13.800 --> 00:02:17.840
+A format that is neither the Python
+format, nor the Java format.
+
+39
+00:02:17.840 --> 00:02:20.220
+It's just a format that we use.
+
+40
+00:02:20.220 --> 00:02:25.180
+And once we've agreed on the format,
+data inside of a Python application
+
+41
+00:02:25.180 --> 00:02:29.290
+has to be transformed in
+some way to the wire format.
+
+42
+00:02:29.290 --> 00:02:32.640
+The wire format's sent across, and
+then for Java to understand and
+
+43
+00:02:32.640 --> 00:02:35.970
+make use of that, they've got
+to pull that wire format off and
+
+44
+00:02:35.970 --> 00:02:37.580
+then turn it into an internal structure.
+
+45
+00:02:37.580 --> 00:02:43.580
+So, dictionaries and HashMaps are internal
+structures for Python and Java.
+
+46
+00:02:43.580 --> 00:02:48.570
+This introduces a term that's very
+important, serialize and de-serialize.
+
+47
+00:02:48.570 --> 00:02:52.960
+Serialize is the act of taking internal
+structure and creating the wire format.
+
+48
+00:02:52.960 --> 00:02:56.420
+And de-serializing is the act
+of taking that wire format and
+
+49
+00:02:56.420 --> 00:02:59.970
+creating an internal structure and
+in different languages.
+
+50
+00:02:59.970 --> 00:03:04.670
+It allows us to create sets
+of applications that work
+
+51
+00:03:04.670 --> 00:03:06.910
+in different languages, right?
+
+52
+00:03:06.910 --> 00:03:11.680
+This particular thing that I'm
+showing you, in the middle, is XML.
+
+53
+00:03:11.680 --> 00:03:15.320
+So XML is one of the two formats we're
+going to spend time talking about in this
+
+54
+00:03:15.320 --> 00:03:21.370
+section, and the different formats
+are better and worse for different things.
+
+55
+00:03:21.370 --> 00:03:22.830
+XML kind of came first.
+
+56
+00:03:22.830 --> 00:03:25.280
+XML came shortly after HTML.
+
+57
+00:03:26.410 --> 00:03:30.490
+And so it has kind of the less thans and
+greater thans that HTML has, but
+
+58
+00:03:30.490 --> 00:03:31.540
+it's very structured data.
+
+59
+00:03:32.850 --> 00:03:38.130
+The other thing that we'll talk
+about is a wire format called JSON,
+
+60
+00:03:38.130 --> 00:03:42.880
+or JavaScript Object Notation, and
+this is a little different.
+
+61
+00:03:42.880 --> 00:03:46.605
+Instead of using less thans or greater
+thans it uses curly braces, double quotes,
+
+62
+00:03:46.605 --> 00:03:49.890
+colons, and
+this actually starts looking like
+
+63
+00:03:49.890 --> 00:03:54.110
+the format of a Python key-value
+dictionary, right?
+
+64
+00:03:54.110 --> 00:03:57.270
+And so even though it kind of looks
+like it, this is still a wire format.
+
+65
+00:03:57.270 --> 00:04:00.920
+And this is textual representation
+of a Python dictionary.
+
+66
+00:04:00.920 --> 00:04:04.290
+And it can be read and
+turned into a Java HashMap.
+
+67
+00:04:04.290 --> 00:04:09.190
+And so JSON and XML are the two formats,
+the two common wire formats,
+
+68
+00:04:09.190 --> 00:04:12.420
+that are used for
+applications to exchange data.
+
+69
+00:04:13.870 --> 00:04:16.660
+So coming up next,
+we're going to talk about XML itself.

@@ -1,0 +1,1263 @@
+WEBVTT
+
+1
+00:00:08.925 --> 00:00:11.728
+So now that we understand what
+a service oriented architecture is,
+
+2
+00:00:11.728 --> 00:00:14.839
+we know how to write Python to read and
+write this stuff, and we can talk URLs,
+
+3
+00:00:14.839 --> 00:00:16.950
+we're going to bring it all together now, and
+
+4
+00:00:16.950 --> 00:00:20.780
+we're going to actually talk to
+some real live web services.
+
+5
+00:00:20.780 --> 00:00:25.990
+As we talk to web services,
+we have to understand how they think.
+
+6
+00:00:25.990 --> 00:00:29.940
+And we may later be building
+applications that export web services.
+
+7
+00:00:29.940 --> 00:00:34.010
+But the first thing we're going to do
+is use somebody else's web service.
+
+8
+00:00:34.010 --> 00:00:36.070
+And we'll have to read
+their documentation.
+
+9
+00:00:36.070 --> 00:00:40.480
+And the documentation, they often
+call these web services APIs, or
+
+10
+00:00:40.480 --> 00:00:43.470
+application program interfaces, because
+
+11
+00:00:43.470 --> 00:00:48.050
+they have an application that's got brains
+and skill and all this stuff, and we have
+
+12
+00:00:48.050 --> 00:00:52.250
+an interface that we can make use of
+the services that an application provides.
+
+13
+00:00:52.250 --> 00:00:55.530
+So you're like, oh, what's the API
+to Twitter, or what's the API for
+
+14
+00:00:55.530 --> 00:00:57.550
+this, or what's the API for that?
+
+15
+00:00:57.550 --> 00:01:01.290
+When you hear this word API,
+that's really what we're talking about.
+
+16
+00:01:01.290 --> 00:01:07.520
+It is a defined set of rules to
+interface with an application program.
+
+17
+00:01:07.520 --> 00:01:09.770
+There's a couple different
+web service technologies.
+
+18
+00:01:09.770 --> 00:01:14.070
+Thankfully, the crappy old
+SOAP is really complex.
+
+19
+00:01:14.070 --> 00:01:18.120
+If you work at a big corporation,
+they might still use crappy SOAP.
+
+20
+00:01:18.120 --> 00:01:20.740
+It's whatever, it's just whatever.
+
+21
+00:01:20.740 --> 00:01:22.320
+Just tell them they should do REST, and
+
+22
+00:01:22.320 --> 00:01:25.190
+if they insist on you using SOAP,
+then you should double your salary.
+
+23
+00:01:25.190 --> 00:01:25.990
+Just tell them that.
+
+24
+00:01:25.990 --> 00:01:30.500
+Say SOAP is so bad, that you have to
+pay me twice as much to work on it.
+
+25
+00:01:30.500 --> 00:01:32.160
+REST is the way we're going to do this.
+
+26
+00:01:32.160 --> 00:01:36.770
+I'll have a video about REST from
+the creator of REST, Roy Fielding.
+
+27
+00:01:36.770 --> 00:01:37.560
+And you can see this.
+
+28
+00:01:37.560 --> 00:01:42.450
+It's a way of sort of viewing the services
+as a set of resources that we're pulling.
+
+29
+00:01:42.450 --> 00:01:46.540
+And it makes this interaction be more like
+
+30
+00:01:46.540 --> 00:01:48.910
+the simple use of the web
+the way browsers use it.
+
+31
+00:01:48.910 --> 00:01:50.450
+We go get data.
+
+32
+00:01:50.450 --> 00:01:54.760
+It's in a different format, but we're still
+sort of saying give me this thing, give me
+
+33
+00:01:54.760 --> 00:01:59.370
+this thing, give me this thing, and
+that data happens to be an XML or a JSON.
+
+34
+00:01:59.370 --> 00:02:01.940
+So REST is a pattern that we'll use.
+
+35
+00:02:01.940 --> 00:02:08.380
+So the first API that we're going to play
+with is the Geocoding API from Google.
+
+36
+00:02:08.380 --> 00:02:12.410
+Now Google has a great search engine,
+they have all this data about the shape
+
+37
+00:02:12.410 --> 00:02:17.510
+of the world, and maps, and
+all this stuff, and you can make use of it.
+
+38
+00:02:17.510 --> 00:02:20.867
+If you have, say, a survey and
+you ask people where they live,
+
+39
+00:02:20.867 --> 00:02:22.469
+well they're going to be rather imprecise.
+
+40
+00:02:22.469 --> 00:02:25.282
+They might say Ann Arbor, Michigan, or
+
+41
+00:02:25.282 --> 00:02:30.800
+they might say eastern New Jersey,
+or they might say Beijing, China.
+
+42
+00:02:30.800 --> 00:02:33.100
+And you may not, it may be very difficult,
+
+43
+00:02:33.100 --> 00:02:37.510
+but you can actually send all those
+queries to Google's Geocoding API and
+
+44
+00:02:37.510 --> 00:02:41.530
+you will get a ton of data based
+on Google's best estimate.
+
+45
+00:02:41.530 --> 00:02:45.460
+It's the same thing as what you would type
+in Google Maps, like Ann Arbor, Michigan.
+
+46
+00:02:45.460 --> 00:02:46.860
+It figures out what you mean.
+
+47
+00:02:46.860 --> 00:02:48.590
+Well, this figures out what you mean, and
+
+48
+00:02:48.590 --> 00:02:51.970
+gives you back a bunch of data
+about the statement that you make.
+
+49
+00:02:51.970 --> 00:02:54.730
+So here's a little example,
+it's much longer than this, but
+
+50
+00:02:54.730 --> 00:02:57.380
+this is a JSON interface.
+
+51
+00:02:57.380 --> 00:03:02.341
+And if you know what the API is, and
+you've got to read all the documentation,
+
+52
+00:03:02.341 --> 00:03:05.392
+so go ahead and
+read all this documentation.
+
+53
+00:03:05.392 --> 00:03:08.992
+And the documentation will tell you,
+unless they've changed it,
+
+54
+00:03:08.992 --> 00:03:13.490
+which they have the right to change it,
+it's free, so we can't complain too much.
+
+55
+00:03:13.490 --> 00:03:17.348
+But for now, what that says is, you say,
+
+56
+00:03:17.348 --> 00:03:22.758
+maps.googleapis.com/maps/api/geocode/json?
+
+57
+00:03:22.758 --> 00:03:24.152
+All of this is necessary.
+
+58
+00:03:24.152 --> 00:03:29.655
+Sensor=false&address=, and
+then you put the actual address.
+
+59
+00:03:29.655 --> 00:03:31.152
+Ann Arbor Michigan.
+
+60
+00:03:31.152 --> 00:03:33.320
+Plus means space, plus means space.
+
+61
+00:03:33.320 --> 00:03:35.950
+And %2C, I think means comma.
+
+62
+00:03:35.950 --> 00:03:36.880
+Okay?
+
+63
+00:03:36.880 --> 00:03:40.620
+So it turns out that what's cool
+about these REST-based web services,
+
+64
+00:03:40.620 --> 00:03:46.060
+is I can actually just take that URL,
+
+65
+00:03:46.060 --> 00:03:52.450
+this one right here, copy it,
+and go stick it into a browser.
+
+66
+00:03:52.450 --> 00:03:53.180
+Come on, browser.
+
+67
+00:03:54.270 --> 00:03:57.270
+And I'm going to just paste that URL,
+exactly as it says.
+
+68
+00:03:57.270 --> 00:04:00.410
+Now, again, you derive this from
+
+69
+00:04:00.410 --> 00:04:04.280
+the documentation to figure out how
+you're supposed to put this URL together.
+
+70
+00:04:04.280 --> 00:04:09.130
+But in effect, this part here,
+this part right here,
+
+71
+00:04:09.130 --> 00:04:11.280
+that was that user-entered data.
+
+72
+00:04:11.280 --> 00:04:12.770
+Right?
+And you encode it a certain way,
+
+73
+00:04:12.770 --> 00:04:15.580
+and there's actually libraries in
+Python that help you do this, but for
+
+74
+00:04:15.580 --> 00:04:19.400
+now I just want to show you
+how you can type this in.
+
+75
+00:04:19.400 --> 00:04:26.310
+Ann Arbor, Michigan, and
+when I hit enter, it retrieved JSON.
+
+76
+00:04:27.310 --> 00:04:30.910
+This is like a web page,
+but it's a resource.
+
+77
+00:04:30.910 --> 00:04:34.160
+It's actually a dynamic resource,
+because the resource isn't the same.
+
+78
+00:04:34.160 --> 00:04:38.600
+It depends on the query values that
+we put in here, Ann Arbor, Michigan.
+
+79
+00:04:38.600 --> 00:04:41.091
+And so it tells us something about this.
+
+80
+00:04:41.091 --> 00:04:42.252
+I'll make it big.
+
+81
+00:04:42.252 --> 00:04:43.111
+It's in Michigan.
+
+82
+00:04:43.111 --> 00:04:43.958
+It's the United States.
+
+83
+00:04:43.958 --> 00:04:46.473
+Here is the geometry, the boundary of it.
+
+84
+00:04:46.473 --> 00:04:48.090
+It is the center of it.
+
+85
+00:04:48.090 --> 00:04:49.089
+Here's the center of it.
+
+86
+00:04:49.089 --> 00:04:50.900
+Latitude and
+Longitude are the center of it.
+
+87
+00:04:50.900 --> 00:04:52.450
+That would allow you to
+place this on a map,
+
+88
+00:04:52.450 --> 00:04:54.880
+if you want to take all your students and
+put it on a map.
+
+89
+00:04:56.210 --> 00:04:59.920
+So if you can retrieve this
+JSON based on this parameter,
+
+90
+00:05:00.990 --> 00:05:05.530
+then you can parse this JSON using
+the JSON library that we just showed you.
+
+91
+00:05:06.760 --> 00:05:08.570
+Okay, so that's what we're going to do.
+
+92
+00:05:08.570 --> 00:05:12.360
+And the real application for
+this might be a survey.
+
+93
+00:05:12.360 --> 00:05:15.050
+As a matter of fact,
+it's the application I use it for,
+
+94
+00:05:15.050 --> 00:05:18.400
+when we do survey data of all
+the students and we want to geolocate them.
+
+95
+00:05:18.400 --> 00:05:22.030
+I just take the words that you put into
+a field and I send it to this API.
+
+96
+00:05:22.030 --> 00:05:24.980
+We’ll talk about some of the issues and
+limitations, but
+
+97
+00:05:24.980 --> 00:05:29.630
+let’s just take a look at how
+it actually works to do this.
+
+98
+00:05:29.630 --> 00:05:33.170
+So this is a bit longer bit of code but
+
+99
+00:05:33.170 --> 00:05:34.800
+let’s take a look at
+what it’s really doing.
+
+100
+00:05:34.800 --> 00:05:36.390
+It’s not all that complex.
+
+101
+00:05:36.390 --> 00:05:38.800
+When we run it,
+our program's going to ask for
+
+102
+00:05:38.800 --> 00:05:44.690
+a location, and we'll type one in,
+Ann Arbor, Michigan, it can take anything.
+
+103
+00:05:44.690 --> 00:05:47.300
+And so I am going to use urllib,
+
+104
+00:05:48.640 --> 00:05:52.600
+which is how we retrieve data on
+the Internet, we need a URL, and
+
+105
+00:05:52.600 --> 00:05:56.340
+import JSON. And JSON is how we are going
+to use the parse the data that comes back.
+
+106
+00:05:57.880 --> 00:06:01.740
+So the URL that we're going to use is this
+URL that we read from the documentation.
+
+107
+00:06:01.740 --> 00:06:04.270
+We're going to like stick the question
+mark at the end of it.
+
+108
+00:06:04.270 --> 00:06:07.170
+And then we're going to write a loop that
+goes around, and around, and around, and
+
+109
+00:06:07.170 --> 00:06:09.180
+asks for the location.
+
+110
+00:06:09.180 --> 00:06:11.660
+And checks to see if the input
+that came back is zero, and
+
+111
+00:06:11.660 --> 00:06:14.200
+if it is we're going to end our loop.
+
+112
+00:06:14.200 --> 00:06:16.890
+And, then we're going to take
+that service URL, and
+
+113
+00:06:16.890 --> 00:06:21.430
+remember the part where we had the plus,
+Ann Arbor, and
+
+114
+00:06:21.430 --> 00:06:25.740
+the plus, and the %2C, well,
+there's a magical thing inside of Python.
+
+115
+00:06:25.740 --> 00:06:30.220
+We don't need to know that,
+we call urllib.urlencode,
+
+116
+00:06:30.220 --> 00:06:34.040
+and we have the key-value pairs
+in a little tiny dictionary.
+
+117
+00:06:34.040 --> 00:06:38.130
+That's what this curly brace is,
+it's a dictionary of key-value pairs.
+
+118
+00:06:38.130 --> 00:06:39.270
+Sensor equals false and
+
+119
+00:06:39.270 --> 00:06:44.850
+address equals this address right here
+is whatever address we typed in and
+
+120
+00:06:44.850 --> 00:06:47.320
+it does all that encoding for
+us that is what it is saying.
+
+121
+00:06:47.320 --> 00:06:51.860
+Encode this address value that the user
+typed in a way that's legal to be
+
+122
+00:06:51.860 --> 00:06:56.780
+put on to a URL. Do that for
+me please automatically. Right?
+
+123
+00:06:57.850 --> 00:07:02.370
+This is string concatenation, and
+then it will print this whole URL out.
+
+124
+00:07:02.370 --> 00:07:04.410
+And then what does it do?
+
+125
+00:07:04.410 --> 00:07:09.440
+It does a urlopen of the URL, and
+then it does a read of that whole thing,
+
+126
+00:07:09.440 --> 00:07:13.180
+which reads that JSON, which is
+the curly braces and all that stuff. Right?
+
+127
+00:07:14.460 --> 00:07:16.590
+So that reads the JSON,
+so this line right here.
+
+128
+00:07:16.590 --> 00:07:20.190
+In Python,
+we don't have to do too much work.
+
+129
+00:07:20.190 --> 00:07:23.330
+Open URL, read the whole thing,
+newlines and all.
+
+130
+00:07:23.330 --> 00:07:25.720
+And we are going to get something
+that looks like that.
+
+131
+00:07:25.720 --> 00:07:28.240
+This is what's going to be in that string.
+
+132
+00:07:29.710 --> 00:07:34.115
+So that's what's in the string,
+and we're going to use a try and
+
+133
+00:07:34.115 --> 00:07:41.420
+except because sometimes if this data is
+bad then loads will blow up and we're
+
+134
+00:07:41.420 --> 00:07:47.260
+going to do an except, I mean we're going to do
+a try and except in case that blows up.
+
+135
+00:07:47.260 --> 00:07:49.830
+And then we're going to take a look at
+
+136
+00:07:51.600 --> 00:07:55.380
+the JavaScript to see if
+we got an OK status.
+
+137
+00:07:55.380 --> 00:08:01.119
+So js ends up being the parsed JSON.
+Right?
+
+138
+00:08:01.119 --> 00:08:03.433
+So js is the whole JSON.
+
+139
+00:08:03.433 --> 00:08:06.772
+This is a little bit tricky,
+but ultimately,
+
+140
+00:08:06.772 --> 00:08:10.634
+we're just reading inside
+here to check the status.
+
+141
+00:08:10.634 --> 00:08:12.119
+Oh it's not down here.
+
+142
+00:08:12.119 --> 00:08:14.314
+Oh, no, status is right there.
+
+143
+00:08:14.314 --> 00:08:16.302
+So we're checking is the status OK.
+
+144
+00:08:16.302 --> 00:08:20.821
+We're also being a little more clever in
+the code that I wrote to check to see
+
+145
+00:08:20.821 --> 00:08:21.913
+if it went wrong.
+
+146
+00:08:21.913 --> 00:08:25.877
+If the exception happened, or
+if the exception happened or
+
+147
+00:08:25.877 --> 00:08:30.077
+the status is not OK,
+then I just print out the nasty stuff and
+
+148
+00:08:30.077 --> 00:08:32.710
+then I continue back up and loop again.
+
+149
+00:08:33.870 --> 00:08:37.820
+Then, the first thing I do is, json,
+
+150
+00:08:37.820 --> 00:08:42.980
+this is the JSON library, dumps,
+says dump in a string, this is, and
+
+151
+00:08:42.980 --> 00:08:48.370
+takes the JSON, which is the parsed,
+in this case it is a parsed
+
+152
+00:08:50.320 --> 00:08:54.880
+dictionary, because the outer thing is a
+bracket, which means this is a dictionary.
+
+153
+00:08:54.880 --> 00:08:58.000
+There are lists within it, but
+the outer thing is a dictionary.
+
+154
+00:08:59.510 --> 00:09:02.330
+And so this is a dictionary,
+the parsed dictionary, and
+
+155
+00:09:02.330 --> 00:09:05.701
+then this is called pretty printing,
+and I mentioned that before.
+
+156
+00:09:08.627 --> 00:09:12.660
+And it says take this stuff, print
+it out nicely, with an indent of four.
+
+157
+00:09:12.660 --> 00:09:17.060
+So it does all the indenting and
+all that stuff so it's readable by humans.
+
+158
+00:09:17.060 --> 00:09:19.350
+The computers really don't
+care if it's indented but
+
+159
+00:09:19.350 --> 00:09:21.900
+we humans care a lot if it's indented.
+
+160
+00:09:21.900 --> 00:09:24.377
+And then what we're going to do,
+is we're going to parse it.
+
+161
+00:09:26.510 --> 00:09:29.390
+Now, it's a little tricky.
+
+162
+00:09:29.390 --> 00:09:33.400
+And when I'm writing this code right here,
+I don't all write it at once.
+
+163
+00:09:33.400 --> 00:09:37.720
+But what you're really doing is
+you're looking at the JSON syntax and
+
+164
+00:09:37.720 --> 00:09:40.682
+you're sort of diving down into the JSON.
+
+165
+00:09:40.682 --> 00:09:43.410
+And I'd sort of do it one at a time, and I'd use
+a lot of print statements, do it over and
+
+166
+00:09:43.410 --> 00:09:44.440
+over and over again.
+
+167
+00:09:44.440 --> 00:09:45.890
+But then when it's all pretty and
+
+168
+00:09:45.890 --> 00:09:49.530
+I know exactly where the thing is that
+I'm looking at, I'm in good shape.
+
+169
+00:09:49.530 --> 00:09:52.410
+So what we're doing is
+we're taking the results.
+
+170
+00:09:53.590 --> 00:09:54.760
+So let's go back.
+
+171
+00:09:54.760 --> 00:09:56.220
+The results is this.
+
+172
+00:09:56.220 --> 00:09:58.590
+And notice that the results is a list.
+
+173
+00:09:58.590 --> 00:10:01.370
+And it turns out that there
+is more than one location.
+
+174
+00:10:01.370 --> 00:10:06.170
+So this is a list of locations, but what
+I'm doing is just taking the first one,
+
+175
+00:10:06.170 --> 00:10:09.710
+so results sub zero,
+all right, results sub zero.
+
+176
+00:10:09.710 --> 00:10:16.200
+And then if we go up,
+results sub zero is this whole object.
+
+177
+00:10:17.220 --> 00:10:23.669
+And then we have geometry,
+which is this little object.
+
+178
+00:10:25.950 --> 00:10:29.600
+And then within geometry,
+we go to location.
+
+179
+00:10:29.600 --> 00:10:31.330
+So now we're down into this little thing.
+
+180
+00:10:32.760 --> 00:10:34.720
+And then we pull out the latitude.
+
+181
+00:10:34.720 --> 00:10:36.335
+So this, let me clear that.
+
+182
+00:10:36.335 --> 00:10:38.350
+Let me clear that to make it clearer.
+
+183
+00:10:38.350 --> 00:10:39.819
+Clear.
+
+184
+00:10:39.819 --> 00:10:42.907
+This whole thing,
+
+185
+00:10:42.907 --> 00:10:49.478
+that expression extracts this number.
+
+186
+00:10:49.478 --> 00:10:52.497
+So, that's how you sort of
+build your way down in.
+
+187
+00:10:52.497 --> 00:10:55.466
+And we had to go through
+a dictionary that included a list,
+
+188
+00:10:55.466 --> 00:10:59.254
+that had a list of dictionaries and then
+a dictionary that had a dictionary and
+
+189
+00:10:59.254 --> 00:11:00.961
+another dictionary inside of it.
+
+190
+00:11:03.306 --> 00:11:05.245
+Right?
+
+191
+00:11:05.245 --> 00:11:06.824
+But that's what we're doing here.
+
+192
+00:11:06.824 --> 00:11:09.599
+Look up in a dictionary, then the first
+element of the list that you get,
+
+193
+00:11:09.599 --> 00:11:11.648
+then there's a dictionary
+inside of a dictionary and
+
+194
+00:11:11.648 --> 00:11:15.080
+then a value inside the dictionary,
+and out comes the latitude.
+
+195
+00:11:15.080 --> 00:11:16.380
+It takes a while to write this, right?
+
+196
+00:11:16.380 --> 00:11:19.550
+I mean, it's much easier for
+me to explain this than to write this, and
+
+197
+00:11:19.550 --> 00:11:23.240
+if you watched me write this, you would
+see I don't write it all correct,
+
+198
+00:11:23.240 --> 00:11:27.040
+because it'll usually blow up
+with a error of some type.
+
+199
+00:11:27.040 --> 00:11:27.880
+I write it one piece.
+
+200
+00:11:27.880 --> 00:11:29.190
+I kind of do it here.
+
+201
+00:11:29.190 --> 00:11:31.890
+I get that part working, and then I add
+another thing and then I add another thing.
+
+202
+00:11:31.890 --> 00:11:33.700
+And finally I get the thing I want, so
+
+203
+00:11:33.700 --> 00:11:36.150
+you don't try to write
+this all at the same time.
+
+204
+00:11:36.150 --> 00:11:39.589
+So this pulls out the latitude and
+the longitude, and I print it out.
+
+205
+00:11:39.589 --> 00:11:44.915
+And then I just pull out the formatted
+address which is within results,
+
+206
+00:11:44.915 --> 00:11:48.555
+the first entry and
+then the formatted address,
+
+207
+00:11:48.555 --> 00:11:51.970
+which is Ann Arbor, Michigan, USA.
+
+208
+00:11:51.970 --> 00:11:55.730
+So we typed in Ann Arbor,
+this is what we typed in, and
+
+209
+00:11:55.730 --> 00:12:00.929
+then Google did the rest of that for
+us and gave us back the actual address.
+
+210
+00:12:00.929 --> 00:12:05.143
+This is an address that is sort of like
+a more precise address than what we typed.
+
+211
+00:12:05.143 --> 00:12:08.301
+And so it got you know,
+pretty, pretty awesome.
+
+212
+00:12:08.301 --> 00:12:10.704
+Okay?
+
+213
+00:12:10.704 --> 00:12:12.170
+Okay, so
+it'll take you a while to look at that.
+
+214
+00:12:12.170 --> 00:12:13.960
+That's a pretty complex bit of code.
+
+215
+00:12:13.960 --> 00:12:19.080
+But it's constructing a URL using
+this URL code, hitting the URL.
+
+216
+00:12:19.080 --> 00:12:22.250
+Then parsing the JSON and extracting
+just the information that we want.
+
+217
+00:12:22.250 --> 00:12:24.230
+So it's a lot of fun actually.
+
+218
+00:12:24.230 --> 00:12:25.080
+A lot of fun.
+
+219
+00:12:25.080 --> 00:12:26.384
+So, let's actually run that guy.
+
+220
+00:12:26.384 --> 00:12:33.235
+It's called geojson.py.
+
+221
+00:12:33.235 --> 00:12:37.610
+So, cat geojson, so there it is.
+
+222
+00:12:37.610 --> 00:12:39.120
+That's that same code I just showed you.
+
+223
+00:12:39.120 --> 00:12:39.789
+So, now I'm going to run it.
+
+224
+00:12:39.789 --> 00:12:45.940
+Python geojson .py.
+
+225
+00:12:45.940 --> 00:12:51.035
+And I'll do Ann Arbor, MI.
+
+226
+00:12:51.035 --> 00:12:54.679
+>> And so you'll see, all right,
+that was really fast.
+
+227
+00:12:56.200 --> 00:12:59.523
+So this is the URL that it hit,
+we used the encoder to get this
+
+228
+00:12:59.523 --> 00:13:04.247
+little bit right here right, because there are
+rules about passing parameters on URLs,
+
+229
+00:13:04.247 --> 00:13:07.528
+we don't need to know the rules,
+we just use the encoder.
+
+230
+00:13:07.528 --> 00:13:13.180
+We got 1736 characters back, the status
+was OK, this was the geometry.
+
+231
+00:13:13.180 --> 00:13:17.723
+We got the, it also knows this in terms
+of like the boundaries of the location,
+
+232
+00:13:17.723 --> 00:13:18.692
+like a square.
+
+233
+00:13:21.153 --> 00:13:23.371
+The actual address, and all these things.
+
+234
+00:13:23.371 --> 00:13:27.132
+The formatted address,
+we pulled all that stuff out, and so
+
+235
+00:13:27.132 --> 00:13:32.140
+this is the JSON we got back, and
+this is the stuff we extracted, right?
+
+236
+00:13:32.140 --> 00:13:36.660
+So I could say things like north quad,
+I don't even know where north quad is.
+
+237
+00:13:36.660 --> 00:13:41.210
+north quad is my office,
+will it find it in the right place or not?
+
+238
+00:13:41.210 --> 00:13:41.920
+I don't know.
+
+239
+00:13:41.920 --> 00:13:43.210
+There might be many north quads.
+
+240
+00:13:45.450 --> 00:13:45.950
+It's not.
+
+241
+00:13:47.230 --> 00:13:49.450
+It doesn't know that
+north quad is my office.
+
+242
+00:13:49.450 --> 00:13:52.370
+Apparently it thinks that north
+quad is in Claremont, California.
+
+243
+00:13:52.370 --> 00:13:53.180
+What are they thinking?
+
+244
+00:13:53.180 --> 00:13:54.550
+I don't know.
+
+245
+00:13:54.550 --> 00:13:55.660
+Oxford, where's Oxford?
+
+246
+00:13:57.080 --> 00:14:00.060
+So there’s Oxford,
+it knows where Oxford is obviously.
+
+247
+00:14:00.060 --> 00:14:02.540
+So we can ask where Universal Studios is.
+
+248
+00:14:05.190 --> 00:14:06.230
+Where’s Universal Studios?
+
+249
+00:14:09.110 --> 00:14:09.610
+Florida.
+
+250
+00:14:10.840 --> 00:14:12.890
+Let’s see if I can make
+a typographical error.
+
+251
+00:14:12.890 --> 00:14:17.190
+D, I, N, S, E, Y Land,
+Disneyland, but I’ve got it wrong.
+
+252
+00:14:17.190 --> 00:14:18.010
+Will is find Disneyland?
+
+253
+00:14:20.270 --> 00:14:22.310
+It can even fix spelling errors.
+
+254
+00:14:22.310 --> 00:14:26.120
+So what you've got is like 35 lines
+of Python, or 30 lines of Python code.
+
+255
+00:14:26.120 --> 00:14:28.810
+And you're taking advantage of like
+
+256
+00:14:28.810 --> 00:14:34.120
+all of Google's awesomeness by talking
+to the Google API to do this, okay?
+
+257
+00:14:34.120 --> 00:14:35.300
+So I'll just hit enter, and we're done.
+
+258
+00:14:37.030 --> 00:14:39.750
+Okay?
+So this is, again.
+
+259
+00:14:39.750 --> 00:14:43.290
+This is how your application
+can become more powerful
+
+260
+00:14:43.290 --> 00:14:47.010
+by integrating the services that
+are provided by another application, or
+
+261
+00:14:47.010 --> 00:14:49.716
+in the case of you cleaning up data,
+it does that too.
+
+262
+00:14:49.716 --> 00:14:55.540
+So, you got to be careful.
+There's no such thing as a free lunch.
+
+263
+00:14:55.540 --> 00:14:59.130
+We love Google and
+they give us this free geocoding thing.
+
+264
+00:14:59.130 --> 00:15:01.470
+But the data is super valuable, and
+
+265
+00:15:01.470 --> 00:15:06.140
+there are people who would do nothing
+except sort of make a really dumb web site
+
+266
+00:15:06.140 --> 00:15:09.970
+to help people look up addresses and
+just use all the Google stuff and
+
+267
+00:15:09.970 --> 00:15:13.800
+their web site would be making money and
+putting up crappy ads and that stuff.
+
+268
+00:15:13.800 --> 00:15:17.270
+So these folks often
+will demand an API key,
+
+269
+00:15:17.270 --> 00:15:19.520
+or charge for usage,
+or have rate limiting.
+
+270
+00:15:19.520 --> 00:15:22.640
+And they might change the rules as
+things get more and less popular.
+
+271
+00:15:22.640 --> 00:15:26.106
+So that's how we're going to talk to this
+first API, but we're not done yet, and
+
+272
+00:15:26.106 --> 00:15:29.472
+there's actually some more issues having
+to do with APIs that we'll cover in
+
+273
+00:15:29.472 --> 00:15:30.333
+the next lecture.

@@ -1,0 +1,212 @@
+WEBVTT
+
+1
+00:00:08.565 --> 00:00:13.353
+So now that we have all these skills
+of parsing XML and reading XML and
+
+2
+00:00:13.353 --> 00:00:14.450
+reading JSON.
+
+3
+00:00:15.790 --> 00:00:17.730
+it's a good idea to take
+a bit of a step back and
+
+4
+00:00:17.730 --> 00:00:20.340
+say, how applications that work together.
+
+5
+00:00:21.380 --> 00:00:23.640
+most typically like a airline website.
+
+6
+00:00:24.780 --> 00:00:28.760
+can take data from many different sources
+and bring that data all together and
+
+7
+00:00:28.760 --> 00:00:33.738
+we call this
+the service-oriented approach.
+
+8
+00:00:33.738 --> 00:00:37.370
+And so, you go to this application and
+it's like, why is it that
+
+9
+00:00:37.370 --> 00:00:41.650
+when you book an airline ticket,
+they seem to be able to also book hotels?
+
+10
+00:00:41.650 --> 00:00:46.520
+And that's because, or are you really
+giving your credit card to the hotel site
+
+11
+00:00:46.520 --> 00:00:50.970
+when you're reserving a hotel.
+And you're not.
+
+12
+00:00:50.970 --> 00:00:55.340
+If it's a well-designed hotel
+credit card site, it's not.
+
+13
+00:00:55.340 --> 00:00:58.880
+And so what happens is
+these meta applications
+
+14
+00:00:58.880 --> 00:01:03.350
+assemble capabilities from
+many different applications.
+
+15
+00:01:03.350 --> 00:01:07.110
+And so these are a way to use
+services from other applications.
+
+16
+00:01:08.820 --> 00:01:13.150
+And these services often
+publish rules that say, okay,
+
+17
+00:01:13.150 --> 00:01:16.080
+this is the URL that you hit,
+and we're going to give you XML,
+
+18
+00:01:16.080 --> 00:01:19.290
+and you got to do this other thing to
+log in, and do these other things.
+
+19
+00:01:19.290 --> 00:01:25.330
+And so it's sort of like how you would
+use an application, except instead
+
+20
+00:01:25.330 --> 00:01:28.560
+of being like, here's what it looks like
+and here's where you click, it's how
+
+21
+00:01:28.560 --> 00:01:33.130
+the application that you're going to
+write is going to use their application.
+
+22
+00:01:33.130 --> 00:01:34.710
+So that they are a service.
+
+23
+00:01:34.710 --> 00:01:35.800
+They're probably in the cloud.
+
+24
+00:01:35.800 --> 00:01:38.700
+And they're sitting on some
+bunch of servers somewhere.
+
+25
+00:01:38.700 --> 00:01:40.780
+And you're going to start hitting
+their URLs, and
+
+26
+00:01:40.780 --> 00:01:42.250
+you're going to accomplish
+something using that.
+
+27
+00:01:42.250 --> 00:01:44.650
+And we're going to even do
+some sample code in this.
+
+28
+00:01:44.650 --> 00:01:47.150
+And this is called
+the service oriented approach.
+
+29
+00:01:47.150 --> 00:01:50.160
+And we have a little video from
+some friends of mine in England,
+
+30
+00:01:50.160 --> 00:01:54.230
+that sort of tries to make sense of this,
+to talk about how it is,
+
+31
+00:01:54.230 --> 00:01:55.970
+and why you need to apply standards.
+
+32
+00:01:55.970 --> 00:01:59.860
+And why you need to be sort
+of very thoughtful about how
+
+33
+00:01:59.860 --> 00:02:02.950
+would you build these APIs,
+and how they cooperate.
+
+34
+00:02:02.950 --> 00:02:04.360
+And how they work together.
+
+35
+00:02:04.360 --> 00:02:07.530
+What happens is, you sort of
+build a thing, and then you like,
+
+36
+00:02:07.530 --> 00:02:10.540
+break it into a piece, and
+you pull these things apart and talk.
+
+37
+00:02:10.540 --> 00:02:11.250
+And then you realize,
+
+38
+00:02:11.250 --> 00:02:13.730
+oh, it'd be better if a whole
+bunch of things talked together.
+
+39
+00:02:13.730 --> 00:02:17.160
+But then we got to write down
+documentation about how it all works, and
+
+40
+00:02:17.160 --> 00:02:20.720
+then it evolves to this
+thing where you say look,
+
+41
+00:02:20.720 --> 00:02:24.560
+now we've really got a very carefully and
+
+42
+00:02:24.560 --> 00:02:28.890
+well understood notion of what these
+applications are supposed to do.
+
+43
+00:02:28.890 --> 00:02:34.000
+And so that's what it is in this service
+oriented architecture and web services.
+
+44
+00:02:34.000 --> 00:02:37.720
+And so this is just sort of my intro to
+the video that will come next.

@@ -1,0 +1,1074 @@
+WEBVTT
+
+1
+00:00:08.651 --> 00:00:12.405
+So now that we sort of understand the
+basics of less thans and greater thans and
+
+2
+00:00:12.405 --> 00:00:15.834
+attributes and tags and simple
+elements and complex elements in XML,
+
+3
+00:00:15.834 --> 00:00:20.517
+it's important to understand how to
+describe what is and isn't valid XML.
+
+4
+00:00:20.517 --> 00:00:23.360
+And we call this XML schema.
+
+5
+00:00:23.360 --> 00:00:26.860
+It's a schema for XML,
+which is sort of the proper shape.
+
+6
+00:00:26.860 --> 00:00:28.180
+Schema kind of means proper shape.
+
+7
+00:00:29.220 --> 00:00:33.200
+And so imagine there are two applications,
+and you're an airline company and
+
+8
+00:00:33.200 --> 00:00:34.150
+a hotel company.
+
+9
+00:00:34.150 --> 00:00:36.720
+And you write this code, and
+you send data back and forth.
+
+10
+00:00:36.720 --> 00:00:37.910
+And it's all working.
+
+11
+00:00:37.910 --> 00:00:39.542
+And then one of you changes something.
+
+12
+00:00:39.542 --> 00:00:41.160
+And then it breaks.
+
+13
+00:00:41.160 --> 00:00:42.370
+Whose fault was it?
+
+14
+00:00:42.370 --> 00:00:47.080
+Well, was it like a a mistake in this one,
+or did they introduce a new mistake?
+
+15
+00:00:47.080 --> 00:00:50.620
+And so
+it's nice to be able to say that this XML,
+
+16
+00:00:50.620 --> 00:00:53.200
+this is the contract that
+we're going to work together.
+
+17
+00:00:53.200 --> 00:00:57.505
+And if I break something or I change
+something and our connection breaks, at
+
+18
+00:00:57.505 --> 00:01:02.230
+least you can check to see if what we're
+sending back and forth meets the contract.
+
+19
+00:01:02.230 --> 00:01:04.420
+We call this "validation", right?
+
+20
+00:01:06.040 --> 00:01:10.480
+And so the idea is you don't
+necessarily do this every time you,
+
+21
+00:01:10.480 --> 00:01:13.730
+it's rare that you do this every time
+you send the data back and forth.
+
+22
+00:01:13.730 --> 00:01:16.610
+It's more like you do this at the time
+where there might be an argument
+
+23
+00:01:16.610 --> 00:01:19.200
+as to whether the XML is valid or not.
+
+24
+00:01:19.200 --> 00:01:22.180
+So what you tend to be able to do is
+if you take this schema contract and
+
+25
+00:01:22.180 --> 00:01:25.243
+you hand it to this
+validation software and
+
+26
+00:01:25.243 --> 00:01:30.590
+you hand a XML document to the validator,
+it'd be like, you're valid.
+
+27
+00:01:30.590 --> 00:01:31.770
+Or you're not valid.
+
+28
+00:01:31.770 --> 00:01:35.385
+So it takes two things, a potentially
+valid or not valid document, and
+
+29
+00:01:35.385 --> 00:01:39.078
+a contract, and then looks at it and
+says, does this meet the contract?
+
+30
+00:01:39.078 --> 00:01:42.640
+And so we'll talk about what it
+takes to make these contracts.
+
+31
+00:01:42.640 --> 00:01:44.951
+So, here's a real bit of simple XML.
+
+32
+00:01:44.951 --> 00:01:47.776
+Now, it turns out the XML
+schema itself is XML,
+
+33
+00:01:47.776 --> 00:01:51.050
+which means it's turtles all the way down.
+
+34
+00:01:51.050 --> 00:01:55.600
+So, here's a little bit of XML with
+a person complex, person tag, and
+
+35
+00:01:55.600 --> 00:02:01.200
+a simple lastname, and
+a age, and a dateborn, right?
+
+36
+00:02:01.200 --> 00:02:04.850
+And we can come up with a schema
+that describes what is and
+
+37
+00:02:04.850 --> 00:02:07.910
+is not legitimate for
+this particular thing.
+
+38
+00:02:07.910 --> 00:02:09.470
+You could say, hey,
+look at that sample XML.
+
+39
+00:02:09.470 --> 00:02:10.690
+That's what we're going to send.
+
+40
+00:02:10.690 --> 00:02:12.870
+So you put the lastname, age,
+and dateborn.
+
+41
+00:02:12.870 --> 00:02:17.010
+Do it that way. And
+lots of times that's all they do.
+
+42
+00:02:17.010 --> 00:02:19.211
+They just sort of like
+make up some sample stuff.
+
+43
+00:02:19.211 --> 00:02:23.720
+And programmer A and programmer B just
+kind of do their thing, and away we go.
+
+44
+00:02:23.720 --> 00:02:29.380
+But, it's not the best way to do things.
+So what we do is we have this contract.
+
+45
+00:02:29.380 --> 00:02:32.780
+And it is itself XML with this
+xs: stuff, and
+
+46
+00:02:32.780 --> 00:02:35.530
+if you remember I talked about
+complex types and simple types.
+
+47
+00:02:35.530 --> 00:02:38.320
+Complex types are those that
+include other tags, and
+
+48
+00:02:38.320 --> 00:02:41.150
+simple types are things
+that only include text.
+
+49
+00:02:41.150 --> 00:02:45.160
+And so this is basically saying
+we're going to have a complex type, and
+
+50
+00:02:45.160 --> 00:02:47.720
+it's going to have a name of,
+it's going to be person.
+
+51
+00:02:47.720 --> 00:02:50.520
+And then we're going to have like
+a sequence of three tags.
+
+52
+00:02:50.520 --> 00:02:53.648
+And the first one's going to be name,
+and it's going to be of type string.
+
+53
+00:02:53.648 --> 00:02:56.730
+The second one's going to be age, and
+it's going to be of type integer.
+
+54
+00:02:56.730 --> 00:02:59.210
+And a third type is dateborn,
+and it's of type date.
+
+55
+00:03:00.250 --> 00:03:05.873
+And so, you can see how, if for example,
+somebody sent back like x here,
+
+56
+00:03:05.873 --> 00:03:09.531
+I mean, it does have a beginning and
+an end tag.
+
+57
+00:03:09.531 --> 00:03:12.749
+But you could look at this
+thing that says, no no no,
+
+58
+00:03:12.749 --> 00:03:16.711
+that second tag is supposed to be a-g-e,
+so that is not right.
+
+59
+00:03:16.711 --> 00:03:18.960
+And that's what the validator would say.
+
+60
+00:03:18.960 --> 00:03:23.850
+And so it's just a way to
+programmatically verify
+
+61
+00:03:23.850 --> 00:03:28.650
+that the XML meets the contract
+that you've agreed to in advance.
+
+62
+00:03:28.650 --> 00:03:31.690
+Now it's not like you can't
+use XML without a schema.
+
+63
+00:03:31.690 --> 00:03:36.261
+But it's often a way to formalize
+a relationship between applications
+
+64
+00:03:36.261 --> 00:03:37.181
+in a nice way.
+
+65
+00:03:37.181 --> 00:03:40.190
+It turns out there's a number
+of different schema languages.
+
+66
+00:03:40.190 --> 00:03:43.440
+These things all sort of came
+out in the late 1980s,
+
+67
+00:03:43.440 --> 00:03:48.845
+early 1990s, and there was a lot of
+sort of chaotic invention going on.
+
+68
+00:03:48.845 --> 00:03:55.735
+And we use this one schema that's
+often called XSD, the XML schema from
+
+69
+00:03:55.735 --> 00:04:00.745
+the Worldwide Web Consortium, which is
+kind of the more later of these things.
+
+70
+00:04:00.745 --> 00:04:05.175
+Because this is sort of like 1995, 94,
+
+71
+00:04:05.175 --> 00:04:09.160
+95 timeframe which, and it's actually,
+probably the easiest one to understand.
+
+72
+00:04:09.160 --> 00:04:10.540
+You take a look at some of these things.
+
+73
+00:04:10.540 --> 00:04:13.100
+Go ahead and look at them.
+
+74
+00:04:13.100 --> 00:04:17.740
+They're all doable, but
+they're kind of scary and harder to use and
+
+75
+00:04:17.740 --> 00:04:21.570
+certainly harder to read and
+harder to write programs to validate.
+
+76
+00:04:21.570 --> 00:04:23.120
+So there's a couple of differences.
+
+77
+00:04:23.120 --> 00:04:27.130
+We're just going to stick with the easy
+one and the one that's most common, and
+
+78
+00:04:27.130 --> 00:04:29.690
+it's often in a file suffix called xsd.
+
+79
+00:04:29.690 --> 00:04:33.775
+So if you download something and you unzip
+it and you get this file called the xsd,
+
+80
+00:04:33.775 --> 00:04:38.875
+it is probably the schema for what you're
+supposed to be sending back and forth.
+
+81
+00:04:38.875 --> 00:04:43.045
+And like I said before, we don't tend
+to use the schema every time we send or
+
+82
+00:04:43.045 --> 00:04:44.155
+receive data.
+
+83
+00:04:44.155 --> 00:04:46.595
+We mostly use the schema
+when we're arguing.
+
+84
+00:04:46.595 --> 00:04:48.355
+Say like you sent something and
+blew me up,
+
+85
+00:04:48.355 --> 00:04:50.300
+and I'm going to run it through this schema.
+
+86
+00:04:50.300 --> 00:04:53.720
+And you fail, so
+you got to go fix your side.
+
+87
+00:04:53.720 --> 00:04:56.517
+It's really whose side you're going to fix.
+
+88
+00:04:56.517 --> 00:04:58.400
+So this is the one we're going to do.
+
+89
+00:04:58.400 --> 00:05:01.460
+It's also called XSD because
+the file names end in XSD,
+
+90
+00:05:01.460 --> 00:05:04.910
+and I said all that already,
+so we'll just skip down here.
+
+91
+00:05:04.910 --> 00:05:08.720
+So, as I mentioned, you know,
+there's a way to represent a complex type.
+
+92
+00:05:08.720 --> 00:05:14.100
+There's a way to represent a sequence, and
+then a simple type is merely an element.
+
+93
+00:05:14.100 --> 00:05:17.070
+And then the interesting thing sort of
+becomes, and this is the way we sort of
+
+94
+00:05:17.070 --> 00:05:21.370
+create sequences and nesting, and you can
+have complex types within complex types.
+
+95
+00:05:21.370 --> 00:05:24.770
+So we are capturing the nesting and
+the naming.
+
+96
+00:05:26.520 --> 00:05:30.272
+So that what is nested within what and
+what the names of the tags are and
+
+97
+00:05:30.272 --> 00:05:33.584
+what the orders of the tags are.
+So we're getting all of that.
+
+98
+00:05:33.584 --> 00:05:36.800
+And then the interesting thing becomes,
+what are the types of the tags?
+
+99
+00:05:36.800 --> 00:05:38.740
+What are the legal types of tags?
+
+100
+00:05:38.740 --> 00:05:41.470
+And that turns out to be some
+of the more interesting things.
+
+101
+00:05:41.470 --> 00:05:44.810
+And a way to sort of lock this
+contract down very nicely.
+
+102
+00:05:44.810 --> 00:05:48.380
+Because you could basically say
+this is a string, and this is a string,
+
+103
+00:05:48.380 --> 00:05:49.960
+and this is a string.
+
+104
+00:05:49.960 --> 00:05:51.260
+But if it's an age,
+
+105
+00:05:51.260 --> 00:05:54.680
+you want it to say something a little more
+restrictive than it's a string, right?
+
+106
+00:05:54.680 --> 00:05:57.110
+And so we want to be able to
+say more restrictive things.
+
+107
+00:05:58.470 --> 00:06:02.484
+Okay, so here's a little bit
+more of a constraint, right,
+
+108
+00:06:02.484 --> 00:06:06.831
+where we're saying, okay,
+this XML has got a complex element.
+
+109
+00:06:06.831 --> 00:06:10.738
+And now we're going to have a complex
+type within that and then a sequence.
+
+110
+00:06:10.738 --> 00:06:13.674
+And the first thing is a full name,
+and it's a string.
+
+111
+00:06:13.674 --> 00:06:18.560
+And minOccurs, these are attributes
+of this element now, and maxOccurs.
+
+112
+00:06:18.560 --> 00:06:22.460
+So minOccurs says it must occur at
+least this number of times, and
+
+113
+00:06:22.460 --> 00:06:25.840
+maxOccurs means it can occur no
+more than those number of times.
+
+114
+00:06:25.840 --> 00:06:29.620
+So that says that valid
+XML here has got to have,
+
+115
+00:06:29.620 --> 00:06:33.280
+always must have,
+in effect it makes this required.
+
+116
+00:06:33.280 --> 00:06:34.630
+Some things are optional.
+
+117
+00:06:34.630 --> 00:06:37.460
+Here we have child_name,
+and it's a string.
+
+118
+00:06:37.460 --> 00:06:39.466
+And minOccurs is 0,
+which means it's optional,
+
+119
+00:06:39.466 --> 00:06:41.600
+which means it doesn't have to be there.
+
+120
+00:06:41.600 --> 00:06:45.280
+If it is there,
+it's kind of there after full_name.
+
+121
+00:06:45.280 --> 00:06:47.830
+And then maxOccurs says
+there are no more than 10.
+
+122
+00:06:47.830 --> 00:06:49.570
+But in this case we have 4 of them.
+
+123
+00:06:49.570 --> 00:06:55.265
+So, it all validates, and so this is good
+valid XML for this bit of XML schema.
+
+124
+00:06:57.840 --> 00:07:00.100
+And so there's some other kinds of things,
+right?
+
+125
+00:07:00.100 --> 00:07:02.360
+This string is just a random string.
+
+126
+00:07:02.360 --> 00:07:03.480
+That's a string.
+
+127
+00:07:03.480 --> 00:07:11.310
+The date starts with a four-digit year,
+dash, two-digit month, dash, day.
+
+128
+00:07:11.310 --> 00:07:14.458
+Different parts of the world
+represent dates differently.
+
+129
+00:07:14.458 --> 00:07:19.380
+Computers kind of prefer to represent
+them in this year, month,
+
+130
+00:07:19.380 --> 00:07:23.560
+day format, and the reason is,
+is because they sort naturally, right?
+
+131
+00:07:23.560 --> 00:07:26.340
+So, the year is the biggest thing, and so
+
+132
+00:07:26.340 --> 00:07:31.050
+it sorts like numbers or even strings as
+long as the string length is the same.
+
+133
+00:07:31.050 --> 00:07:35.910
+So if you are in a date time,
+it's date followed
+
+134
+00:07:35.910 --> 00:07:41.140
+by the capital T, followed by hours,
+minutes, and seconds.
+
+135
+00:07:41.140 --> 00:07:44.110
+And then the last little
+thing here is the time zone.
+
+136
+00:07:44.110 --> 00:07:51.820
+And Z stands for UTC or GMT,
+whatever time it is in London basically.
+
+137
+00:07:51.820 --> 00:07:55.370
+So, that's another thing
+that computers tend to do.
+
+138
+00:07:55.370 --> 00:07:58.490
+When you're starting to
+exchange data between computers
+
+139
+00:07:58.490 --> 00:08:01.670
+that might be anywhere in the world,
+the current time?
+
+140
+00:08:01.670 --> 00:08:06.409
+You really don't want to think about the
+time zone, especially when you're thinking
+
+141
+00:08:06.409 --> 00:08:10.374
+about things like Eastern Standard Time,
+and Eastern Daylight Time.
+
+142
+00:08:10.374 --> 00:08:15.190
+And, I don't know
+They even a long time ago made a watch
+
+143
+00:08:15.190 --> 00:08:20.800
+that all the watches were set
+to the Greenwich Mean Time.
+
+144
+00:08:20.800 --> 00:08:25.060
+So all the people around the world
+would have the same concept of time.
+
+145
+00:08:25.060 --> 00:08:26.380
+It was a cool hipster idea.
+
+146
+00:08:26.380 --> 00:08:28.601
+But, many, many,
+many years ago it was a good idea.
+
+147
+00:08:28.601 --> 00:08:30.780
+They don't do it anymore.
+
+148
+00:08:30.780 --> 00:08:35.967
+But, you can have a decimal number like
+99.50, which means letters aren't allowed.
+
+149
+00:08:35.967 --> 00:08:39.038
+And so, and then there's an integer,
+which now you don't even allow periods or
+
+150
+00:08:39.038 --> 00:08:40.390
+fractional parts.
+
+151
+00:08:40.390 --> 00:08:45.050
+So, you can sort of lock these things
+down in your XML schema contract.
+
+152
+00:08:47.560 --> 00:08:51.800
+And so I already mentioned the time
+format, which is the four digit,
+
+153
+00:08:51.800 --> 00:08:52.630
+two digit.
+
+154
+00:08:52.630 --> 00:08:55.560
+You don't call this -5-.
+
+155
+00:08:55.560 --> 00:08:57.141
+You want to be able to sort this thing.
+
+156
+00:08:57.141 --> 00:09:01.777
+And if you look at this from sort of
+most significant to least significant,
+
+157
+00:09:01.777 --> 00:09:05.440
+the year, month, day,
+hours, minutes, seconds.
+
+158
+00:09:05.440 --> 00:09:07.630
+And you put the zeroes in.
+
+159
+00:09:07.630 --> 00:09:09.970
+That's what we computer nerds like to do,
+put the zeroes in.
+
+160
+00:09:09.970 --> 00:09:11.250
+It's a computer thing.
+
+161
+00:09:11.250 --> 00:09:14.280
+And the exact same number
+of columns all the time.
+
+162
+00:09:14.280 --> 00:09:18.910
+And then the whole thing, if they
+are all this long, they sort naturally.
+
+163
+00:09:18.910 --> 00:09:19.854
+The sort is natural.
+
+164
+00:09:19.854 --> 00:09:28.550
+So, 2010-01-05 da da da,
+
+165
+00:09:28.550 --> 00:09:31.080
+well that's going to sort the right way.
+
+166
+00:09:31.080 --> 00:09:34.020
+So the later date is going to sort later.
+
+167
+00:09:34.020 --> 00:09:36.624
+So you make them all the same length,
+adding zeros where necessary.
+
+168
+00:09:36.624 --> 00:09:41.148
+And you go year, month, day,
+hour, minute, second.
+
+169
+00:09:41.148 --> 00:09:46.280
+And Z, Zulu time zone,
+universal time.
+
+170
+00:09:46.280 --> 00:09:50.520
+This whole format that we're talking
+about is the ISO 8601 format.
+
+171
+00:09:50.520 --> 00:09:55.200
+And if you're ever doing dates inside
+of a computer, ever, just use this.
+
+172
+00:09:55.200 --> 00:09:56.010
+Don't mess around.
+
+173
+00:09:56.010 --> 00:09:58.370
+Don't mess around with time zones,
+unless, of course,
+
+174
+00:09:58.370 --> 00:09:59.730
+you're displaying them to users.
+
+175
+00:09:59.730 --> 00:10:03.110
+So what you do is we tend to store,
+internally, times and
+
+176
+00:10:03.110 --> 00:10:06.100
+dates in Greenwich Mean Time or UTC,
+
+177
+00:10:06.100 --> 00:10:10.090
+and then we convert them just at
+the moment that we show them to people.
+
+178
+00:10:11.260 --> 00:10:13.230
+Not that we're building web
+applications or anything,
+
+179
+00:10:13.230 --> 00:10:16.550
+but that's how we tend to
+do it inside of computers.
+
+180
+00:10:16.550 --> 00:10:20.340
+So this is just another schema that's
+going to demonstrate sort of one or
+
+181
+00:10:20.340 --> 00:10:21.420
+two new things.
+
+182
+00:10:21.420 --> 00:10:25.580
+So they start looking
+really crazy after a while,
+
+183
+00:10:25.580 --> 00:10:29.770
+but go look them up on Wikipedia or
+whatever, and figure out what it is.
+
+184
+00:10:29.770 --> 00:10:31.730
+But here we have an element.
+
+185
+00:10:31.730 --> 00:10:32.540
+Get my pencil back.
+
+186
+00:10:32.540 --> 00:10:37.500
+The outer element is named Address, and
+then within that we have a Recipient, 
+
+187
+00:10:37.500 --> 00:10:38.770
+a House, a Street, a Town.
+
+188
+00:10:38.770 --> 00:10:42.548
+These are all strings, not too bad,
+and then a County which is optional.
+
+189
+00:10:42.548 --> 00:10:47.430
+MinOccurs of 0, which is really saying
+this thing we don't need a County value.
+
+190
+00:10:47.430 --> 00:10:50.780
+And a PostCode which is required,
+and it's of type string.
+
+191
+00:10:50.780 --> 00:10:56.130
+But then we have this element of Country.
+
+192
+00:10:56.130 --> 00:10:58.110
+But we basically are going to
+put a restriction on it.
+
+193
+00:10:58.110 --> 00:11:00.940
+We say look, this is indeed a string.
+
+194
+00:11:00.940 --> 00:11:06.210
+The base of this is a string, but it's got
+to be one of these five strings, right?
+
+195
+00:11:06.210 --> 00:11:09.830
+FR, DE, ES, UK, and US.
+
+196
+00:11:09.830 --> 00:11:11.840
+So apparently those are all of
+the countries in the world,
+
+197
+00:11:11.840 --> 00:11:15.060
+at least all that matter on this screen
+because my screen is only so high.
+
+198
+00:11:15.060 --> 00:11:19.160
+And so this is a way for you to say,
+hey, this is part of the contract.
+
+199
+00:11:19.160 --> 00:11:20.290
+Yes, it's a string.
+
+200
+00:11:20.290 --> 00:11:23.690
+It's two characters long, and
+there's only five possible values for
+
+201
+00:11:23.690 --> 00:11:25.350
+this that are legitimate.
+
+202
+00:11:25.350 --> 00:11:29.150
+And so, again, you can get very
+specific in these contracts.
+
+203
+00:11:30.330 --> 00:11:34.620
+And so now, if we sort of take
+a look at this, this is legit,
+
+204
+00:11:34.620 --> 00:11:36.770
+because it matches that country code.
+
+205
+00:11:36.770 --> 00:11:40.190
+And the rest of it's legit as well, okay?
+
+206
+00:11:40.190 --> 00:11:42.544
+So it's just something, we're not
+going to spend too much time with it.
+
+207
+00:11:42.544 --> 00:11:47.706
+I just sort of want you to understand
+roughly about these contracts and
+
+208
+00:11:47.706 --> 00:11:52.360
+maybe look at a few of them,
+but not really make them.
+
+209
+00:11:52.360 --> 00:11:53.490
+It's pretty sophisticated.
+
+210
+00:11:53.490 --> 00:11:58.190
+Here's just another example of a schema
+that demonstrates a few other things.
+
+211
+00:11:58.190 --> 00:12:00.930
+That's a string,
+shiporder's the outer key.
+
+212
+00:12:02.490 --> 00:12:06.360
+This is another element that has a name,
+address, city, county.
+
+213
+00:12:06.360 --> 00:12:08.240
+That's all pretty straightforward.
+
+214
+00:12:08.240 --> 00:12:10.400
+Here is an item.
+
+215
+00:12:10.400 --> 00:12:12.080
+The maxOccurs is unbounded.
+
+216
+00:12:12.080 --> 00:12:14.400
+Now, that's a new thing.
+That says, we don't care how many.
+
+217
+00:12:14.400 --> 00:12:15.706
+It's not like ten.
+
+218
+00:12:15.706 --> 00:12:19.280
+The maximum is however many
+of these things you want. Right?
+
+219
+00:12:19.280 --> 00:12:22.380
+And then the other thing that's sort of
+different in here is the fact that this is
+
+220
+00:12:22.380 --> 00:12:24.470
+a positive integer instead
+of just an integer.
+
+221
+00:12:24.470 --> 00:12:28.760
+So, you could say this is a number or
+this is a positive number, okay?
+
+222
+00:12:28.760 --> 00:12:30.630
+And so, there you go.
+
+223
+00:12:30.630 --> 00:12:33.160
+And this one says that's required.
+
+224
+00:12:33.160 --> 00:12:35.655
+So, you just have to
+construct these things, and
+
+225
+00:12:35.655 --> 00:12:41.065
+they are the way that we construct
+contracts about what XML.
+
+226
+00:12:42.195 --> 00:12:44.915
+So now we've learned a bit about XML and
+XML schema.
+
+227
+00:12:44.915 --> 00:12:49.665
+Now we're going to talk about what would you
+do with XML if you found XML in Python,
+
+228
+00:12:49.665 --> 00:12:50.735
+and we'll do that next.
